@@ -1,12 +1,7 @@
-import styled from "styled-components";
-
 export default function HomePage() {
-  StyledHomepage = styled.div`
-    background-color: green;
-  `;
   return (
-    <StyledHomepage>
+    <div>
       <h1>Hide and Seek</h1>
-    </StyledHomepage>
+    </div>
   );
 }
