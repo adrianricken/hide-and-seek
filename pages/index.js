@@ -1,7 +1,12 @@
+import styled from "styled-components";
+
 export default function HomePage() {
+  StyledHomepage = styled.div`
+    background-color: green;
+  `;
   return (
-    <div>
-      <h1>Hello from Next.js</h1>
-    </div>
+    <StyledHomepage>
+      <h1>Hide and Seek</h1>
+    </StyledHomepage>
   );
 }
