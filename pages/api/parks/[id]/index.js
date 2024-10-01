@@ -7,15 +7,11 @@ export default async function handler(request, response) {
   try {
     await dbConnect();
     if (request.method === "GET") {
-      const placeDetail = await Place.findById(id);
-      if (!placeDetail) {
+      const parkDetail = await Park.findById(id);
+      if (!parkDetail) {
         return response.status(404).json({ status: "Not Found" });
       }
-      const comments = await Comment.find({
-        _id: { $in: placeDetail.comments },
-      });
-
-      return response.status(200).json({ place: placeDetail, comments });
+      return response.status(200).json({ park: parkDetail });
     }
   } catch (error) {
     console.error(error);

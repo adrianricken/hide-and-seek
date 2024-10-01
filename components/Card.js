@@ -1,21 +1,14 @@
 import Link from "next/link.js";
 import styled from "styled-components";
-import { StyledImage } from "./StyledImage.js";
-
-const Article = styled.article`
-  border: 1px solid black;
-  border-radius: 0.8rem;
-  padding: 1rem;
-`;
+import Image from "next/image.js";
 
 const ImageContainer = styled.div`
   position: relative;
-  height: 10rem;
+  height: 15rem;
 `;
 
-const Figure = styled.figure`
-  position: relative;
-  margin: 0;
+const StyledImage = styled(Image)`
+  object-fit: cover;
 `;
 
 const Anchor = styled.a`
@@ -42,28 +35,18 @@ const ScreenReaderOnly = styled.span`
   border-width: 0;
 `;
 
-export default function Card({ name, image, location, id }) {
+export default function Card({ name, image, id }) {
   return (
-    <Article>
-      <Figure>
-        <ImageContainer>
-          <StyledImage
-            src={image}
-            fill
-            sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
-            alt=""
-          />
-        </ImageContainer>
-        <figcaption>{name}</figcaption>
-      </Figure>
-      <p>Location: {location}</p>
-      <Link href={`places/${id}`} passHref legacyBehavior>
+    <>
+      <ImageContainer>
+        <StyledImage src={image} fill alt="" />
+      </ImageContainer>
+      <h2>{name}</h2>
+      <Link href={`parks/${id}`} passHref legacyBehavior>
         <Anchor>
           <ScreenReaderOnly>More Info</ScreenReaderOnly>
         </Anchor>
       </Link>
-    </Article>
+    </>
   );
 }
