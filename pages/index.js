@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+// Language: German option
+
 export default function HomePage() {
   return (
     <>
@@ -12,7 +14,7 @@ export default function HomePage() {
         detailed view, offering insights into available activities and local
         attractions.
       </p>
-      <Link href={"./parks"}>See all Parks</Link>
+      <Link href={"./parks"}>BERLIN</Link>
     </>
   );
 }

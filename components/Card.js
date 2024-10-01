@@ -4,23 +4,12 @@ import Image from "next/image.js";
 
 const ImageContainer = styled.div`
   position: relative;
-  height: 15rem;
+  height: 30rem;
+  width: 30rem;
 `;
 
 const StyledImage = styled(Image)`
   object-fit: cover;
-`;
-
-const Anchor = styled.a`
-  &::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
 `;
 
 const ScreenReaderOnly = styled.span`
@@ -38,14 +27,12 @@ const ScreenReaderOnly = styled.span`
 export default function Card({ name, image, id }) {
   return (
     <>
-      <ImageContainer>
-        <StyledImage src={image} fill alt="" />
-      </ImageContainer>
+      <br />
       <h2>{name}</h2>
-      <Link href={`parks/${id}`} passHref legacyBehavior>
-        <Anchor>
-          <ScreenReaderOnly>More Info</ScreenReaderOnly>
-        </Anchor>
+      <Link href={"parks / [id]"} passHref legacyBehavior>
+        <ImageContainer>
+          <StyledImage src={image} fill alt="" />
+        </ImageContainer>
       </Link>
     </>
   );
