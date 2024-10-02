@@ -1,5 +1,5 @@
-import dbConnect from "../../../../db/connect";
 import Park from "@/db/models/Park";
+import dbConnect from "@/db/connect";
 
 export default async function handler(request, response) {
   const { id } = request.query;
