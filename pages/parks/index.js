@@ -7,12 +7,11 @@ const ParkListItem = styled.li`
   list-style: none;
 `;
 
-export default function ParksList() {
+export default function Parks() {
   const { data } = useSWR("/api/parks", { fallbackData: [] });
 
   return (
     <>
-      <Link href={".."}>← Home</Link>
       <ul>
         {data.map((park) => {
           return (
