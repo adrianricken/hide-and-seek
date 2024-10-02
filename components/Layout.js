@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Head from "next/head.js";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
 const Header = styled.header`
   display: flex;
@@ -12,6 +13,7 @@ const Header = styled.header`
   height: 8%;
   width: 100%;
   z-index: 1;
+  font-size: 30px;
 `;
 
 const Main = styled.main`
@@ -21,6 +23,11 @@ const Main = styled.main`
   position: relative;
   width: 100%;
   height: 100%;
+`;
+
+const LogButton = styled.button`
+  border: none;
+  background-color: transparent;
 `;
 
 export default function Layout({ children }) {
@@ -36,13 +43,12 @@ export default function Layout({ children }) {
         <h3>Hide and Seek</h3>
         <nav>
           {!session ? (
-            <button onClick={() => signIn()}>Sign In</button>
+            <LogButton onClick={() => signIn()}>Sign In</LogButton>
           ) : (
             <>
-              <p>Signed in as {session.user.name}</p>
-              <button onClick={() => signOut({ callbackUrl: "/" })}>
+              <LogButton onClick={() => signOut({ callbackUrl: "/" })}>
                 Sign Out
-              </button>{" "}
+              </LogButton>{" "}
             </>
           )}
         </nav>

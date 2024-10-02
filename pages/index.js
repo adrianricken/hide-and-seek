@@ -5,20 +5,24 @@ import styled from "styled-components";
 
 // Language: German option
 
+const Background = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+`;
+
 const TextContainer = styled.div`
   display: flex;
   position: fixed;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 200px;
+  width: 400px;
+  height: 800px;
   background-color: white;
-`;
-
-const Background = styled.div`
-  height: 100vh;
-  width: 100vw;
-  background-color: green;
+  padding: 10px;
 `;
 
 export default function HomePage() {
