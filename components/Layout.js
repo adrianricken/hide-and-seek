@@ -40,12 +40,15 @@ export default function Layout({ children }) {
       </Head>
 
       <Header>
-        <h3>Hide and Seek</h3>
+        <Link href={"/parks"}>
+          <h3>Hide and Seek</h3>
+        </Link>
         <nav>
           {!session ? (
             <LogButton onClick={() => signIn()}>Sign In</LogButton>
           ) : (
             <>
+              <Link href={"./profile"}>Profile</Link>
               <LogButton onClick={() => signOut({ callbackUrl: "/" })}>
                 Sign Out
               </LogButton>{" "}
