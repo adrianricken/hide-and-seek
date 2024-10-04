@@ -17,7 +17,7 @@ export default function Parks() {
         {sortedParks.map((park) => {
           return (
             <ParkListItem key={park._id}>
-              <Card name={park.name} image={park.imageURL} />
+              <Card name={park.name} image={park.imageURL} id={park._id} />
             </ParkListItem>
           );
         })}

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image.js";
+import Link from "next/link";
 
 const ImageContainer = styled.div`
   position: relative;
@@ -11,25 +12,15 @@ const StyledImage = styled(Image)`
   object-fit: cover;
 `;
 
-const ScreenReaderOnly = styled.span`
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-`;
-
 export default function Card({ name, image, id }) {
   return (
     <>
       <br />
       <h2>{name}</h2>
       <ImageContainer>
-        <StyledImage src={image} fill alt="" />
+        <Link href={`/parks/${id}`} passHref>
+          <StyledImage src={image} fill alt="" />
+        </Link>
       </ImageContainer>
     </>
   );
