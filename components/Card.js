@@ -1,4 +1,3 @@
-import Link from "next/link.js";
 import styled from "styled-components";
 import Image from "next/image.js";
 
@@ -29,11 +28,9 @@ export default function Card({ name, image, id }) {
     <>
       <br />
       <h2>{name}</h2>
-      <Link href={"parks / [id]"} passHref legacyBehavior>
-        <ImageContainer>
-          <StyledImage src={image} fill alt="" />
-        </ImageContainer>
-      </Link>
+      <ImageContainer>
+        <StyledImage src={image} fill alt="" />
+      </ImageContainer>
     </>
   );
 }
