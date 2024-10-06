@@ -16,9 +16,6 @@ export default function ParkDetails() {
 
   return (
     <>
-      {/* <h1>{park.name}</h1>
-      <img src={park.imageURL} alt={park.name} height={300} width={400} />
-      <p>{park.description}</p> */}
       <CardDetail
         id={park._id}
         name={park.name}

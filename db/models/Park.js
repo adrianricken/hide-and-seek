@@ -8,7 +8,7 @@ const parkSchema = new Schema({
   description: { type: String, required: true },
   imageURL: { type: String, required: true },
   amenities: { type: Array, required: true },
-  accessible: { type: Boolean, required: true },
+  accessible: { type: String, required: true },
 });
 
 const Park = mongoose.models.Park || mongoose.model("Park", parkSchema);

@@ -20,17 +20,20 @@ export default function CardDetail({
   amenities,
   accessible,
 }) {
-  //   if (!park) {
-  //     return <p>Loading...</p>;
-  //   }
-
   return (
     <>
-      <h1>{name}</h1>
+      <section>
+        <div></div>
+        <div>
+          <h1>{name}</h1>
+        </div>
+      </section>
       <ImageContainer>
         <StyledImage src={image} fill alt="" />
       </ImageContainer>
       <p>{description}</p>
+      <br />
+      <p>{accessible}</p>
     </>
   );
 }
