@@ -9,6 +9,7 @@ const parkSchema = new Schema({
   imageURL: { type: String, required: true },
   amenities: { type: Array, required: true },
   accessible: { type: String, required: true },
+  description_short: { type: String, required: true },
 });
 
 const Park = mongoose.models.Park || mongoose.model("Park", parkSchema);

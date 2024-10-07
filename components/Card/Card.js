@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const ImageContainer = styled.div`
   position: relative;
-  height: 30rem;
+  height: 20rem;
   width: 30rem;
 `;
 
@@ -15,7 +15,6 @@ const StyledImage = styled(Image)`
 export default function Card({ name, image, id }) {
   return (
     <>
-      <br />
       <h2>{name}</h2>
       <ImageContainer>
         <Link href={`/parks/${id}`} passHref>

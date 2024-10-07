@@ -30,6 +30,18 @@ const LogButton = styled.button`
   background-color: transparent;
 `;
 
+const Footer = styled.footer`
+  position: fixed;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background-color: #a3d2a3;
+  bottom: 0 !important;
+  padding: 2rem 0 2rem;
+  color: #2c4f2c;
+`;
+
 export default function Layout({ children }) {
   const { data: session } = useSession();
   return (
@@ -45,18 +57,31 @@ export default function Layout({ children }) {
         </Link>
         <nav>
           {!session ? (
-            <LogButton onClick={() => signIn()}>Sign In</LogButton>
+            <LogButton onClick={() => signIn()}>Login</LogButton>
           ) : (
             <>
-              <Link href={"./profile"}>Profile</Link>
+              <Link href={"./profile"}>
+                <img
+                  src={session.user.image}
+                  alt="User Profile"
+                  style={{
+                    borderRadius: "50%",
+                    width: "50px",
+                    height: "50px",
+                  }}
+                />
+              </Link>
               <LogButton onClick={() => signOut({ callbackUrl: "/" })}>
-                Sign Out
+                Logout
               </LogButton>{" "}
             </>
           )}
         </nav>
       </Header>
       <Main>{children}</Main>
+      <Footer>
+        <div>2024 Adrian Ricken</div>
+      </Footer>
     </>
   );
 }

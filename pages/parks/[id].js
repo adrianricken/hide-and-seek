@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import CardDetail from "@/components/CardDetail";
+import CardDetail from "@/components/CardDetail/CardDetail";
 
 export default function ParkDetails() {
   const router = useRouter();
@@ -24,6 +24,7 @@ export default function ParkDetails() {
         image={park.imageURL}
         amenities={park.amenities}
         accessible={park.accessible}
+        description_short={park.description_short}
       />
     </>
   );
