@@ -26,6 +26,7 @@ export default function Parks() {
           }
           width={1100}
           height={600}
+          alt="map of berlin"
         />
       </div>
       <CardContainer>
