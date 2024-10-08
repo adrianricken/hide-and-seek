@@ -2,6 +2,7 @@ import { SWRConfig } from "swr";
 import { SessionProvider } from "next-auth/react";
 import GlobalStyle from "../styles";
 import Layout from "@/components/Layout";
+import "leaflet/dist/leaflet.css";
 
 export default function App({
   Component,

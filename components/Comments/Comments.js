@@ -1,84 +1,67 @@
-import styled from "styled-components";
-import useSWR from "swr";
-import { useRouter } from "next/router.js";
+import { useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
 
-export default function Comments() {
-  const router = useRouter();
-  const { id } = router.query;
-  const { data, mutate } = useSWR(`/api/places/${id}`);
+const CommentForm = ({ parkId }) => {
+  const { data: session } = useSession();
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]); // State to hold comments
 
-  async function handleSubmitComment(e) {
+  // Fetch comments when the component mounts
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const res = await fetch(`/api/parks/${parkId}/comments`);
+        if (res.ok) {
+          const data = await res.json();
+          setComments(data.comments); // Set the fetched comments to state
+        }
+      } catch (error) {
+        console.error("Failed to load comments:", error);
+      }
+    };
+
+    fetchComments();
+  }, [parkId]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const commentData = Object.fromEntries(formData);
+    if (!comment.trim()) return;
 
-    const response = await fetch(`/api/places/${id}`, {
+    const res = await fetch("/api/comments", {
       method: "POST",
-      body: JSON.stringify(commentData),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ parkId, content: comment }),
     });
 
-    if (response.ok) {
-      await response.json();
-      mutate();
-      e.target.reset();
+    if (res.ok) {
+      const newComment = await res.json(); // Assuming the API returns the new comment
+      setComments((prevComments) => [...prevComments, newComment]); // Update the comments list
+      setComment(""); // Clear the input field
     } else {
-      console.error(`Error: ${response.status}`);
+      console.error("Failed to post comment");
     }
-  }
-  const comments = data?.comments;
+  };
 
-  async function handleDeleteComment(commentId) {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this comment?"
-    );
-    if (confirmDelete) {
-      const response = await fetch(`/api/places/${id}`, {
-        method: "DELETE",
-        body: JSON.stringify({ commentId }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        mutate();
-      } else {
-        console.error("Failed to delete comment");
-      }
-    }
-  }
+  if (!session) return <p>You must be logged in to post a comment.</p>;
 
   return (
-    <div>
-      {comments && comments.length > 0 ? (
-        <>
-          <h1>
-            {`${comments.length} fan${
-              comments.length === 1 ? "" : "s"
-            } commented on this place:`}
-          </h1>
-          {comments.map(({ _id, name, comment }) => (
-            <div key={_id}>
-              <p>
-                <strong>{session.user.name}</strong>
-              </p>
-              <span>{comment}</span>
-              <br />
-              <button onClick={() => handleDeleteComment(_id)}>❌</button>
-            </div>
-          ))}
-        </>
-      ) : (
-        <p>No comments yet. Be the first!</p>
-      )}
-      <div onSubmit={handleSubmitComment}>
-        <label htmlFor="comment">Your Comment</label>
-        <input type="text" name="comment" placeholder="comment here..." />
-        <button type="submit">Send</button>
-      </div>
-    </div>
+    <>
+      <ul>
+        {comments.map((comment) => (
+          <li key={comment._id}>{comment.content}</li>
+        ))}
+      </ul>
+      <form onSubmit={handleSubmit}>
+        <textarea
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          placeholder="Your comment..."
+          required
+        />
+        <button type="submit">Post</button>
+      </form>
+    </>
   );
-}
+};
+
+export default CommentForm;
