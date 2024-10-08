@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Head from "next/head.js";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Header = styled.header`
   display: flex;
@@ -14,6 +15,17 @@ const Header = styled.header`
   width: 100%;
   z-index: 1;
   font-size: 30px;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit; /* Ensures the color stays consistent */
+  transition: color 0.3s ease; /* Smooth transition effect */
+
+  &:hover {
+    color: #2c4f2c; /* Change color on hover */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  }
 `;
 
 const Main = styled.main`
@@ -52,23 +64,21 @@ export default function Layout({ children }) {
       </Head>
 
       <Header>
-        <Link href={"/parks"}>
+        <StyledLink href={"/parks"}>
           <h3>Hide and Seek</h3>
-        </Link>
+        </StyledLink>
         <nav>
           {!session ? (
             <LogButton onClick={() => signIn()}>Login</LogButton>
           ) : (
             <>
               <Link href={"./profile"}>
-                <img
+                <Image
                   src={session.user.image}
                   alt="User Profile"
-                  style={{
-                    borderRadius: "50%",
-                    width: "50px",
-                    height: "50px",
-                  }}
+                  width={50}
+                  height={50}
+                  style={{ borderRadius: "50%" }}
                 />
               </Link>
               <LogButton onClick={() => signOut({ callbackUrl: "/" })}>

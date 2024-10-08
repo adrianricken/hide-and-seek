@@ -1,7 +1,6 @@
 import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
 import { Icon, divIcon, point } from "leaflet";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 const customIcon = new Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/149/149983.png",
@@ -16,6 +15,7 @@ export default function MapBerlin({ data }) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      <TileLayer url="https://tile.jawg.io/jawg-lagoon/{z}/{x}/{y}{r}.png?access-token=OCQMFeqjmuIUfZ9XUmVpkiFgeLCwveHnhg78w316UnrCDNpitbJ0Xus26IF0J4WW" />
       {data.map((park) => (
         <Marker
           key={park._id}
