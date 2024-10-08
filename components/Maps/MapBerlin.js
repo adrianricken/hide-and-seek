@@ -1,10 +1,17 @@
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
+import { Icon, divIcon, point } from "leaflet";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+const customIcon = new Icon({
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/149/149983.png",
+  //   iconUrl: require("./icons/placeholder.png"),
+  iconSize: [30, 30],
+});
 
 export default function MapBerlin({ data }) {
-  console.log("data", data);
-
   return (
-    <MapContainer center={[52.520008, 13.404954]} zoom={11}>
+    <MapContainer center={[52.51173, 13.40156]} zoom={11}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -13,12 +20,13 @@ export default function MapBerlin({ data }) {
         <Marker
           key={park._id}
           position={[park.coordinates.lat, park.coordinates.lng]}
+          icon={customIcon}
         >
-          {/* <Popup>
-            <strong>{park.name}</strong>
-            <br />
-            {park.description}
-          </Popup> */}
+          <Popup>
+            <Link href={`/parks/${park._id}`} passHref>
+              {park.name}
+            </Link>
+          </Popup>
         </Marker>
       ))}
     </MapContainer>
