@@ -1,5 +1,5 @@
 import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
-import { Icon, divIcon, point } from "leaflet";
+import { Icon } from "leaflet";
 import Link from "next/link";
 
 const customIcon = new Icon({
@@ -10,7 +10,7 @@ const customIcon = new Icon({
 
 export default function MapBerlin({ data }) {
   return (
-    <MapContainer center={[52.51173, 13.40156]} zoom={11}>
+    <MapContainer center={[52.51173, 13.40156]} zoom={11.5}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

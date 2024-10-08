@@ -23,7 +23,7 @@ const StyledLink = styled(Link)`
   transition: color 0.3s ease; /* Smooth transition effect */
 
   &:hover {
-    color: #2c4f2c; /* Change color on hover */
+    // color: #2c4f2c; /* Change color on hover */
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
   }
 `;
