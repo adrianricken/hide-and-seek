@@ -12,13 +12,14 @@ export default createGlobalStyle`
 
   body {
     margin: 0;
+    padding: 0;
     font-family: system-ui;
   }
 
   /* sizing of map container */
   .leaflet-container {
-  height: 40vh;
-  width: 100%
+  height: 50vh;
+  width: 100%;
   }
   
   `;

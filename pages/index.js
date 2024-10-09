@@ -25,6 +25,11 @@ const TextContainer = styled.div`
   padding: 10px;
 `;
 
+const LogButton = styled.button`
+  border: none;
+  background-color: transparent;
+`;
+
 export default function HomePage() {
   const router = useRouter();
   const { data: session, status } = useSession();

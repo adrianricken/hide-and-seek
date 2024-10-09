@@ -39,7 +39,7 @@ When a user clicks on a park, they will see a detailed view with all relevant in
 - Develop an API endpoint to fetch details for a specific park.
 - Write down the history / general information about the park
 - include accessibility information (e.g. wheelchair access)
-- Display park amenities, nearby shops, and event information in the detailed view.
+- Display park amenities and event information in the detailed view.
 
 ---
 
