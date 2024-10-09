@@ -10,10 +10,10 @@ const Header = styled.header`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: lightgray;
+  background-color: #e5dbcf;
   height: 8%;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
   font-size: 30px;
 `;
 
@@ -35,6 +35,7 @@ const Main = styled.main`
   position: relative;
   width: 100%;
   height: 100%;
+  z-index: 1;
 `;
 
 const LogButton = styled.button`
@@ -48,10 +49,12 @@ const Footer = styled.footer`
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  height: 20px;
   background-color: #a3d2a3;
   bottom: 0 !important;
   padding: 2rem 0 2rem;
   color: #2c4f2c;
+  z-index: 2;
 `;
 
 export default function Layout({ children }) {

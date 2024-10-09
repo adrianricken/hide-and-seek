@@ -1,7 +1,11 @@
 import useSWR from "swr";
 import styled from "styled-components";
 import Card from "@/components/Card/Card";
-import MapBerlin from "@/components/Maps/MapBerlin";
+import dynamic from "next/dynamic";
+
+const MapBerlin = dynamic(() => import("../../components/Maps/MapBerlin"), {
+  ssr: false, // Deaktiviert das Server-Side-Rendering
+});
 
 const ParkListItem = styled.li`
   list-style: none;
