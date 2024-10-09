@@ -12,7 +12,6 @@ const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 250px 1fr; /* Linke Leiste hat feste Breite, rechter Bereich flexibel */
   gap: 20px; /* Abstand zwischen Leiste und Parks */
-  // padding: 20px;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr; /* Leiste und Parks untereinander auf kleineren Bildschirmen */
@@ -58,10 +57,6 @@ const ParkCard = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
   overflow: hidden; /* Clip overflow */
   transition: transform 0.2s; /* Smooth hover effect */
-
-  &:hover {
-    transform: scale(1.03); /* Scale up on hover */
-  }
 `;
 
 export default function Parks() {
