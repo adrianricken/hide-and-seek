@@ -79,7 +79,9 @@ export default function Layout({ children }) {
       </Head>
       {!hideHeaderFooter && (
         <Header>
-          <h3>Hide and Seek</h3>
+          <StyledLink href={"/parks"}>
+            <h3>Hide and Seek</h3>
+          </StyledLink>
           <nav>
             {!session ? (
               <LogButton onClick={() => signIn()}>Login</LogButton>

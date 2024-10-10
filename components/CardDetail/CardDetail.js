@@ -32,6 +32,7 @@ const IntroTitle = styled.div`
   position: absolute;
   right: 0;
   margin-top: 200px;
+  padding: 40px;
 `;
 
 const MapSection = styled.section`
@@ -43,6 +44,42 @@ const MapSection = styled.section`
 
 const CommentSection = styled.section`
   display: flex;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full height of the viewport */
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* Stack the elements on smaller screens */
+  }
+`;
+
+const ImageContainer = styled.div`
+  flex: 1; /* Take up half of the space */
+  background-image: url("/path/to/your/image.jpg"); /* Set your image here */
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the image */
+
+  @media (max-width: 768px) {
+    height: 50%; /* Half height for mobile */
+  }
+`;
+
+const ParkNameContainer = styled.div`
+  flex: 1; /* Take up half of the space */
+  display: flex;
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
+  font-size: 2rem; /* Adjust font size */
+  padding: 20px; /* Add some padding */
+  text-align: center; /* Center text */
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem; /* Adjust font size for mobile */
+    height: 50%; /* Half height for mobile */
+  }
 `;
 
 export default function CardDetail({
@@ -57,28 +94,31 @@ export default function CardDetail({
 }) {
   return (
     <>
-      <IntroSection id="intro">
-        <IntroImage>
-          <div>
-            <Image src={image} fill alt="" />
-          </div>
-        </IntroImage>
-        <IntroTitle>
-          <h1>{name}</h1>
-          <p>{description_short}</p>
-        </IntroTitle>
-      </IntroSection>
-      <MapSection id="map">
-        <p>{description}</p>
-        <br />
-        {/* maybe another image? */}
-        <h3>Accessibility:</h3>
-        <p>{accessible}</p>
-      </MapSection>
-      <CommentSection>
-        <h3>Comment section:</h3>
-        <Comments />
-      </CommentSection>
+      <Container>
+        <IntroSection id="intro">
+          <IntroImage>
+            <div>
+              <Image src={image} fill alt="" />
+            </div>
+          </IntroImage>
+          <IntroTitle>
+            <h1>{name}</h1>
+            <br />
+            <p>{description_short}</p>
+          </IntroTitle>
+        </IntroSection>
+        <MapSection id="map">
+          <p>{description}</p>
+          <br />
+          {/* maybe another image? */}
+          <h3>Accessibility:</h3>
+          <p>{accessible}</p>
+        </MapSection>
+        <CommentSection>
+          <h3>Comment section:</h3>
+          <Comments />
+        </CommentSection>
+      </Container>
     </>
   );
 }
