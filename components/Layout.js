@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import Head from "next/head.js";
+import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const Header = styled.header`
   display: flex;
@@ -19,12 +20,11 @@ const Header = styled.header`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: inherit; /* Ensures the color stays consistent */
-  transition: color 0.3s ease; /* Smooth transition effect */
+  color: inherit;
+  transition: color 0.3s ease;
 
   &:hover {
-    // color: #2c4f2c; /* Change color on hover */
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -45,15 +45,16 @@ const LogButton = styled.button`
 `;
 
 const Footer = styled.footer`
-  position: relative;
+  position: fixed; /* Änderung */
+  left: 0;
+  bottom: 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 100%;
   height: 2vh;
   background-color: #f7f7ee;
-  bottom: 0 !important;
-  padding: 2rem 0;
+  padding: 1rem 0;
   color: #2c4f2c;
   z-index: 2;
 `;
@@ -66,22 +67,23 @@ const ProfileContainer = styled.div`
 
 export default function Layout({ children }) {
   const { data: session } = useSession();
+  const router = useRouter();
+
+  const hideHeaderFooter = router.pathname === "/"; // Hier anpassen
+
   return (
     <>
       <Head>
         <title>Hide and Seek</title>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
-
-      <Header>
-        <StyledLink href={"/parks"}>
+      {!hideHeaderFooter && (
+        <Header>
           <h3>Hide and Seek</h3>
-        </StyledLink>
-        <nav>
-          {!session ? (
-            <LogButton onClick={() => signIn()}>Login</LogButton>
-          ) : (
-            <>
+          <nav>
+            {!session ? (
+              <LogButton onClick={() => signIn()}>Login</LogButton>
+            ) : (
               <ProfileContainer>
                 <Link href={"./profile"}>
                   <Image
@@ -94,16 +96,18 @@ export default function Layout({ children }) {
                 </Link>
                 <LogButton onClick={() => signOut({ callbackUrl: "/" })}>
                   Logout
-                </LogButton>{" "}
+                </LogButton>
               </ProfileContainer>
-            </>
-          )}
-        </nav>
-      </Header>
+            )}
+          </nav>
+        </Header>
+      )}
       <Main>{children}</Main>
-      <Footer>
-        <div>2024 Adrian Ricken</div>
-      </Footer>
+      {!hideHeaderFooter && (
+        <Footer>
+          <div>2024 Adrian Ricken</div>
+        </Footer>
+      )}
     </>
   );
 }
