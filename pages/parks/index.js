@@ -61,26 +61,36 @@ export default function Parks() {
   const { data } = useSWR("/api/parks", { fallbackData: [] });
   const sortedParks = data.sort((a, b) => a.name.localeCompare(b.name));
   const [filter, setFilter] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredParks, setFilteredParks] = useState(sortedParks);
 
   useEffect(() => {
-    if (filter) {
-      const filtered = sortedParks.filter((park) => {
-        return park.amenities.includes(filter);
-      });
-      setFilteredParks(filtered);
-    } else {
-      setFilteredParks(sortedParks);
-    }
-  }, [filter, sortedParks]);
+    const filtered = sortedParks.filter((park) => {
+      const matchesAmenity = filter
+        ? park.amenities.map((amenity) => amenity).includes(filter)
+        : true;
+
+      const matchesSearch = park.name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+
+      return matchesAmenity && matchesSearch; // Both conditions must be true
+    });
+
+    setFilteredParks(filtered);
+  }, [filter, searchQuery, sortedParks]);
 
   return (
     <>
       <MapBerlin data={filteredParks} />
       <MainContainer>
         <Sidebar>
-          <p>Search for specific Park:</p>
-          <SearchInput />
+          <SearchInput
+            type="text"
+            placeholder="Search parks by name..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
+          />{" "}
           <Filter setFilter={setFilter} /> {/* Pass the setFilter function */}
         </Sidebar>
         <ParkContainer>

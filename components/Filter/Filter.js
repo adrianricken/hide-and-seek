@@ -10,6 +10,7 @@ const Filter = ({ setFilter }) => {
 
   return (
     <div>
+      <p>Filter:</p>
       <select value={selectedAmenity} onChange={handleFilterChange}>
         <option value="">All amenities</option>
         <option value="Basketball">Basketball</option>
