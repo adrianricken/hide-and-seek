@@ -63,7 +63,6 @@ export default function Parks() {
   const [filter, setFilter] = useState("");
   const [filteredParks, setFilteredParks] = useState(sortedParks);
 
-  // Filter parks based on selected amenity
   useEffect(() => {
     if (filter) {
       const filtered = sortedParks.filter((park) => {
