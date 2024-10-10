@@ -45,7 +45,7 @@ const LogButton = styled.button`
 `;
 
 const Footer = styled.footer`
-  position: fixed; /* Änderung */
+  position: relative;
   left: 0;
   bottom: 0;
   display: flex;
@@ -82,26 +82,6 @@ export default function Layout({ children }) {
           <StyledLink href={"/parks"}>
             <h3>Hide and Seek</h3>
           </StyledLink>
-          <nav>
-            {!session ? (
-              <LogButton onClick={() => signIn()}>Login</LogButton>
-            ) : (
-              <ProfileContainer>
-                <Link href={"./profile"}>
-                  <Image
-                    src={session.user.image}
-                    alt="User Profile"
-                    width={50}
-                    height={50}
-                    style={{ borderRadius: "50%" }}
-                  />
-                </Link>
-                <LogButton onClick={() => signOut({ callbackUrl: "/" })}>
-                  Logout
-                </LogButton>
-              </ProfileContainer>
-            )}
-          </nav>
         </Header>
       )}
       <Main>{children}</Main>
