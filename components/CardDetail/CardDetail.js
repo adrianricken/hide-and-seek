@@ -38,8 +38,11 @@ const IntroTitle = styled.div`
 const MapSection = styled.section`
   width: 50%;
   position: relative;
+  display: flex;
+  flex-direction: column;
   height: auto;
   float: right;
+  padding: 40px;
 `;
 
 const CommentSection = styled.section`
@@ -53,32 +56,6 @@ const Container = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column; /* Stack the elements on smaller screens */
-  }
-`;
-
-const ImageContainer = styled.div`
-  flex: 1; /* Take up half of the space */
-  background-image: url("/path/to/your/image.jpg"); /* Set your image here */
-  background-size: cover; /* Cover the entire container */
-  background-position: center; /* Center the image */
-
-  @media (max-width: 768px) {
-    height: 50%; /* Half height for mobile */
-  }
-`;
-
-const ParkNameContainer = styled.div`
-  flex: 1; /* Take up half of the space */
-  display: flex;
-  justify-content: center; /* Center text horizontally */
-  align-items: center; /* Center text vertically */
-  font-size: 2rem; /* Adjust font size */
-  padding: 20px; /* Add some padding */
-  text-align: center; /* Center text */
-
-  @media (max-width: 768px) {
-    font-size: 1.5rem; /* Adjust font size for mobile */
-    height: 50%; /* Half height for mobile */
   }
 `;
 
@@ -110,7 +87,6 @@ export default function CardDetail({
         <MapSection id="map">
           <p>{description}</p>
           <br />
-          {/* maybe another image? */}
           <h3>Accessibility:</h3>
           <p>{accessible}</p>
         </MapSection>
