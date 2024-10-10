@@ -51,14 +51,18 @@ const Footer = styled.footer`
   align-items: center;
   width: 100%;
   height: 2vh;
-  background-color: #e5dbcf;
+  background-color: #f7f7ee;
   bottom: 0 !important;
   padding: 2rem 0 2rem;
   color: #2c4f2c;
   z-index: 2;
 `;
 
-const NameMiddle = styled.div``;
+const ProfileContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+`;
 
 export default function Layout({ children }) {
   const { data: session } = useSession();
@@ -70,28 +74,28 @@ export default function Layout({ children }) {
       </Head>
 
       <Header>
-        <NameMiddle>
-          <StyledLink href={"/parks"}>
-            <h3>Hide and Seek</h3>
-          </StyledLink>
-        </NameMiddle>
+        <StyledLink href={"/parks"}>
+          <h3>Hide and Seek</h3>
+        </StyledLink>
         <nav>
           {!session ? (
             <LogButton onClick={() => signIn()}>Login</LogButton>
           ) : (
             <>
-              <Link href={"./profile"}>
-                <Image
-                  src={session.user.image}
-                  alt="User Profile"
-                  width={50}
-                  height={50}
-                  style={{ borderRadius: "50%" }}
-                />
-              </Link>
-              <LogButton onClick={() => signOut({ callbackUrl: "/" })}>
-                Logout
-              </LogButton>{" "}
+              <ProfileContainer>
+                <Link href={"./profile"}>
+                  <Image
+                    src={session.user.image}
+                    alt="User Profile"
+                    width={50}
+                    height={50}
+                    style={{ borderRadius: "50%" }}
+                  />
+                </Link>
+                <LogButton onClick={() => signOut({ callbackUrl: "/" })}>
+                  Logout
+                </LogButton>{" "}
+              </ProfileContainer>
             </>
           )}
         </nav>

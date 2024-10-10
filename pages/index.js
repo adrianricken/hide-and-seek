@@ -1,6 +1,5 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import styled from "styled-components";
 
 const Background = styled.div`
@@ -10,13 +9,35 @@ const Background = styled.div`
   margin-top: 8vh;
 `;
 
+const VideoBackground = styled.video`
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  object-fit: cover;
+  filter: blur(15px);
+`;
+
+const ContentContainer = styled.div`
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+`;
+
 const TextContainer = styled.div`
   display: flex;
   position: fixed;
   flex-direction: column;
   justify-content: center;
   width: 400px;
-  height: 800px;
+  height: 300px;
   background-color: white;
   padding: 10px;
   border: 1px solid black;
@@ -31,20 +52,13 @@ export default function HomePage() {
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      // Redirect to the gallery page once authenticated
-      router.push("/parks");
-    }
-  }, [status, router]);
-
-  if (status === "loading" || status === "authenticated") {
-    // While the authentication status is being determined or user is already logged in, show nothing to avoid flickering effect
-    return null;
-  }
-
   return (
     <>
+      <VideoBackground autoPlay loop muted>
+        <source src="/leaves.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </VideoBackground>
+
       <Background>
         <TextContainer>
           <p>
@@ -60,3 +74,16 @@ export default function HomePage() {
     </>
   );
 }
+
+// above return:
+// useEffect(() => {
+//   if (status === "authenticated") {
+//     // Redirect to the gallery page once authenticated
+//     router.push("/parks");
+//   }
+// }, [status, router]);
+
+// if (status === "loading" || status === "authenticated") {
+//   // While the authentication status is being determined or user is already logged in, show nothing to avoid flickering effect
+//   return null;
+// }
