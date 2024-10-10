@@ -2,29 +2,29 @@ import useSWR from "swr";
 import styled from "styled-components";
 import Card from "@/components/Card/Card";
 import dynamic from "next/dynamic";
+import Filter from "@/components/Filter/Filter";
+import { useState, useEffect } from "react";
 
 const MapBerlin = dynamic(() => import("../../components/Maps/MapBerlin"), {
-  ssr: false, // Deaktiviert das Server-Side-Rendering
+  ssr: false, // Disable Server-Side Rendering
 });
 
-// Hauptcontainer, der das Layout festlegt
 const MainContainer = styled.div`
   display: grid;
-  grid-template-columns: 250px 1fr; /* Linke Leiste hat feste Breite, rechter Bereich flexibel */
-  gap: 20px; /* Abstand zwischen Leiste und Parks */
+  grid-template-columns: 250px 1fr; /* Fixed width sidebar, flexible main area */
+  gap: 20px; /* Space between sidebar and parks */
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr; /* Leiste und Parks untereinander auf kleineren Bildschirmen */
+    grid-template-columns: 1fr; /* Stack sidebar and parks on smaller screens */
   }
 `;
 
 const Sidebar = styled.div`
   background-color: #f7f7f7;
   height: fit-content;
-  padding: 0 40px 0 40px;
-
+  padding: 0 40px;
   position: sticky;
-  top: 10vh; /* Abstand vom oberen Rand des Bildschirms */
+  top: 10vh; /* Space from top of the screen */
 `;
 
 const SearchInput = styled.input`
@@ -35,7 +35,6 @@ const SearchInput = styled.input`
   border-radius: 4px;
 `;
 
-// Main container for the parks
 const ParkContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(
@@ -50,7 +49,6 @@ const ParkListItem = styled.li`
   list-style: none;
 `;
 
-// Individual park card
 const ParkCard = styled.div`
   background: #fff; /* Card background */
   border-radius: 8px; /* Rounded corners */
@@ -61,19 +59,33 @@ const ParkCard = styled.div`
 
 export default function Parks() {
   const { data } = useSWR("/api/parks", { fallbackData: [] });
-
   const sortedParks = data.sort((a, b) => a.name.localeCompare(b.name));
+  const [filter, setFilter] = useState("");
+  const [filteredParks, setFilteredParks] = useState(sortedParks);
+
+  // Filter parks based on selected amenity
+  useEffect(() => {
+    if (filter) {
+      const filtered = sortedParks.filter((park) => {
+        return park.amenities.includes(filter);
+      });
+      setFilteredParks(filtered);
+    } else {
+      setFilteredParks(sortedParks);
+    }
+  }, [filter, sortedParks]);
 
   return (
     <>
-      <MapBerlin data={data} />
+      <MapBerlin data={filteredParks} />
       <MainContainer>
         <Sidebar>
           <p>Search for specific Park:</p>
           <SearchInput />
+          <Filter setFilter={setFilter} /> {/* Pass the setFilter function */}
         </Sidebar>
         <ParkContainer>
-          {sortedParks.map((park) => {
+          {filteredParks.map((park) => {
             return (
               <ParkListItem key={park._id}>
                 <ParkCard>
