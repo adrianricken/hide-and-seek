@@ -39,7 +39,7 @@ When a user clicks on a park, they will see a detailed view with all relevant in
 - Develop an API endpoint to fetch details for a specific park.
 - Write down the history / general information about the park
 - include accessibility information (e.g. wheelchair access)
-- Display park amenities, nearby shops, and event information in the detailed view.
+- Display park amenities and event information in the detailed view.
 
 ---
 
@@ -79,18 +79,17 @@ This functionality provides an input field where users can type the name of a pa
 
 ---
 
-### User Story 5: Add Personal Notes
+### User Story 5: Add Comments
 
 As a user
-I want to add personal notes about parks
-so that I can keep track of my thoughts and experiences.
+I want to add comments about parks
+so that I can share my thoughts and experiences.
 
 #### Description
 
-Users can add private notes to each park that are saved only for their use.
+Users can add personal comments to each park.
 
 #### Tasks
 
-- Implement a notes input field in the detailed park view.
-- Create an API endpoint to save user notes.
-- Ensure notes are linked to the user and are not publicly visible.
+- Implement a comments input field in the detailed park view.
+- Create an API endpoint to save comments.

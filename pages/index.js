@@ -3,15 +3,11 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styled from "styled-components";
 
-// Language: German option
-
 const Background = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  margin-top: 8vh;
 `;
 
 const TextContainer = styled.div`
@@ -23,6 +19,12 @@ const TextContainer = styled.div`
   height: 800px;
   background-color: white;
   padding: 10px;
+  border: 1px solid black;
+`;
+
+const LogButton = styled.button`
+  border: none;
+  background-color: transparent;
 `;
 
 export default function HomePage() {

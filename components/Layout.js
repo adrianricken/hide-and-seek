@@ -2,33 +2,63 @@ import styled from "styled-components";
 import Head from "next/head.js";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Header = styled.header`
   display: flex;
   position: fixed;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  background-color: lightgray;
-  height: 8%;
+  background-color: #f7f7ee;
+  height: 8vh;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
   font-size: 30px;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit; /* Ensures the color stays consistent */
+  transition: color 0.3s ease; /* Smooth transition effect */
+
+  &:hover {
+    // color: #2c4f2c; /* Change color on hover */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  }
 `;
 
 const Main = styled.main`
   display: flex;
   flex-direction: column;
-  padding-top: 10%;
+  padding-top: 8vh;
+  padding-bottom: 8vh;
   position: relative;
   width: 100%;
   height: 100%;
+  z-index: 1;
 `;
 
 const LogButton = styled.button`
   border: none;
   background-color: transparent;
 `;
+
+const Footer = styled.footer`
+  position: fixed;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 2vh;
+  background-color: #e5dbcf;
+  bottom: 0 !important;
+  padding: 2rem 0 2rem;
+  color: #2c4f2c;
+  z-index: 2;
+`;
+
+const NameMiddle = styled.div``;
 
 export default function Layout({ children }) {
   const { data: session } = useSession();
@@ -40,23 +70,36 @@ export default function Layout({ children }) {
       </Head>
 
       <Header>
-        <Link href={"/parks"}>
-          <h3>Hide and Seek</h3>
-        </Link>
+        <NameMiddle>
+          <StyledLink href={"/parks"}>
+            <h3>Hide and Seek</h3>
+          </StyledLink>
+        </NameMiddle>
         <nav>
           {!session ? (
-            <LogButton onClick={() => signIn()}>Sign In</LogButton>
+            <LogButton onClick={() => signIn()}>Login</LogButton>
           ) : (
             <>
-              <Link href={"./profile"}>Profile</Link>
+              <Link href={"./profile"}>
+                <Image
+                  src={session.user.image}
+                  alt="User Profile"
+                  width={50}
+                  height={50}
+                  style={{ borderRadius: "50%" }}
+                />
+              </Link>
               <LogButton onClick={() => signOut({ callbackUrl: "/" })}>
-                Sign Out
+                Logout
               </LogButton>{" "}
             </>
           )}
         </nav>
       </Header>
       <Main>{children}</Main>
+      <Footer>
+        <div>2024 Adrian Ricken</div>
+      </Footer>
     </>
   );
 }

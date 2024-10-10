@@ -1,12 +1,17 @@
-import styled from "styled-components";
-import Head from "next/head.js";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
-export default function Profile({ children }) {
-  const { data: session } = useSession();
+export default function ProfilePage() {
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
   return (
     <>
-      <h1>TEST</h1>
+      <h1>{session.user.name}</h1>
+      <h3>Your favorite parks:</h3>
+      <ul></ul>
     </>
   );
 }
