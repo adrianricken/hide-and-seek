@@ -16,7 +16,7 @@ const LevelContainer = styled.div`
 `;
 
 const DistanceDiv = styled.div`
-  height: 4vh;
+  height: 2vh;
 `;
 
 export default function MapBerlin({ data }) {

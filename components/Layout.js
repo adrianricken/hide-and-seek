@@ -45,7 +45,7 @@ const LogButton = styled.button`
 `;
 
 const Footer = styled.footer`
-  position: fixed;
+  position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -53,7 +53,7 @@ const Footer = styled.footer`
   height: 2vh;
   background-color: #f7f7ee;
   bottom: 0 !important;
-  padding: 2rem 0 2rem;
+  padding: 2rem 0;
   color: #2c4f2c;
   z-index: 2;
 `;

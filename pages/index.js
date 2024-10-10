@@ -6,7 +6,10 @@ const Background = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: bottom;
   margin-top: 8vh;
+  min-width: 100%;
+  min-height: 100%;
 `;
 
 const VideoBackground = styled.video`
@@ -17,18 +20,7 @@ const VideoBackground = styled.video`
   min-height: 100%;
   z-index: -1;
   object-fit: cover;
-  filter: blur(15px);
-`;
-
-const ContentContainer = styled.div`
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  color: white;
+  filter: blur(10px);
 `;
 
 const TextContainer = styled.div`
@@ -55,7 +47,7 @@ export default function HomePage() {
   return (
     <>
       <VideoBackground autoPlay loop muted>
-        <source src="/leaves.mp4" type="video/mp4" />
+        <source src="/leaves_cut.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </VideoBackground>
 

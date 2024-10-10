@@ -20,9 +20,10 @@ const MainContainer = styled.div`
 `;
 
 const Sidebar = styled.div`
-  background-color: #f7f7f7;
   height: fit-content;
-  padding: 0 40px;
+  padding: 65px 40px;
+  background-color: white;
+  z-index: 10;
   position: sticky;
   top: 10vh; /* Space from top of the screen */
 `;
