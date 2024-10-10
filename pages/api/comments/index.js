@@ -1,29 +1,46 @@
-import { getSession } from "next-auth/react";
-import Comment from "@/db/models/Comment";
+import { ObjectId } from "mongodb";
 
-export default async function comment(req, res) {
-  const session = await getSession({ req });
-
-  if (!session) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-
+export default async function handler(req, res) {
   if (req.method === "POST") {
-    const { parkId, content } = req.body;
+    const { parkId, userId, content } = req.body;
+    const { db } = await connectToDatabase();
 
-    try {
-      const newComment = await Comment.create({
-        userId: session.user.id, // Ensure you get the correct user ID
-        parkId,
-        content,
-      });
+    const newComment = {
+      parkId,
+      userId,
+      content,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
 
-      res.status(201).json(newComment);
-    } catch (error) {
-      res.status(500).json({ error: "Error saving the comment" });
-    }
+    await db.collection("comments").insertOne(newComment);
+    res.status(201).json({ message: "Comment added successfully" });
   } else {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    res.status(405).json({ message: "Only POST requests allowed" });
+  }
+  if (req.method === "PUT") {
+    const { commentId, content } = req.body;
+    const { db } = await connectToDatabase();
+
+    await db
+      .collection("comments")
+      .updateOne(
+        { _id: new ObjectId(commentId) },
+        { $set: { content, updatedAt: new Date() } }
+      );
+
+    res.status(200).json({ message: "Comment updated successfully" });
+  } else {
+    res.status(405).json({ message: "Only PUT requests allowed" });
+  }
+  if (req.method === "DELETE") {
+    const { commentId } = req.body;
+    const { db } = await connectToDatabase();
+
+    await db.collection("comments").deleteOne({ _id: new ObjectId(commentId) });
+
+    res.status(200).json({ message: "Comment deleted successfully" });
+  } else {
+    res.status(405).json({ message: "Only DELETE requests allowed" });
   }
 }

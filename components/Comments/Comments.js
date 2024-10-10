@@ -10,7 +10,7 @@ const CommentForm = ({ parkId }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await fetch(`/api/parks/${parkId}/comments`);
+        const res = await fetch(`/api/comments/${parkId}/comments`);
         if (res.ok) {
           const data = await res.json();
           setComments(data.comments); // Set the fetched comments to state

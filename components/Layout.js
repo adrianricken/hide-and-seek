@@ -10,7 +10,7 @@ const Header = styled.header`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #e5dbcf;
+  background-color: #f7f7ee;
   height: 8vh;
   width: 100%;
   z-index: 2;

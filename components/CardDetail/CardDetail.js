@@ -46,12 +46,12 @@ const CommentSection = styled.section`
 `;
 
 export default function CardDetail({
-  id,
+  // id,
   name,
   location,
   description,
   image,
-  amenities,
+  // amenities,
   accessible,
   description_short,
 }) {

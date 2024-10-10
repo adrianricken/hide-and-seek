@@ -14,6 +14,7 @@ const ImageContainer = styled.div`
 
 const StyledImage = styled(Image)`
   object-fit: cover;
+  filter: saturate(0.8);
 `;
 
 const ParkDescription = styled.p`
