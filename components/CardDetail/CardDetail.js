@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styled from "styled-components";
-import Comments from "../Comments/Comments";
+import CommentForm from "../Comments/CommentForm";
+import { useEffect, useState } from "react";
 
 const IntroSection = styled.section`
   display: flex;
@@ -98,6 +99,7 @@ const Container = styled.div`
 `;
 
 export default function CardDetail({
+  id,
   name,
   description,
   image,
@@ -105,6 +107,30 @@ export default function CardDetail({
   description_short,
   secondImage,
 }) {
+  const [comments, setComments] = useState([]);
+
+  const fetchComments = async () => {
+    try {
+      const response = await fetch(`/api/comments?parkId=${id}`);
+      if (!response.ok) {
+        // If the response is not ok, throw an error
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setComments(data); // Update the comments state
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, [id]);
+
+  const handleCommentAdded = (newComment) => {
+    setComments((prevComments) => [newComment, ...prevComments]);
+  };
+
   return (
     <Container>
       <IntroSection id="intro">
@@ -143,7 +169,19 @@ export default function CardDetail({
         </ImagePlaceholder>
         <CommentSection>
           <h3>Post a comment:</h3>
-          <Comments />
+          <CommentForm parkId={id} onCommentAdded={handleCommentAdded} />
+          <h3>Comments:</h3>
+          <ul>
+            {comments.map((comment) => (
+              <li key={comment._id}>
+                <p>{comment.content}</p>
+                <small>
+                  {comment.userId},{" "}
+                  {new Date(comment.timestamp).toLocaleString()}
+                </small>
+              </li>
+            ))}
+          </ul>
         </CommentSection>
       </LastSection>
     </Container>

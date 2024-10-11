@@ -1,46 +1,39 @@
-import { ObjectId } from "mongodb";
+import dbConnect from "@/db/connect";
+import Comment from "@/db/models/Comment";
 
 export default async function handler(req, res) {
+  await dbConnect();
+
   if (req.method === "POST") {
-    const { parkId, userId, content } = req.body;
-    const { db } = await connectToDatabase();
+    const { userId, parkId, content } = req.body;
 
-    const newComment = {
-      parkId,
-      userId,
-      content,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    try {
+      const newComment = await Comment.create({
+        userId,
+        parkId,
+        content,
+        timestamp: new Date(), // Optional: add a timestamp
+      });
 
-    await db.collection("comments").insertOne(newComment);
-    res.status(201).json({ message: "Comment added successfully" });
-  } else {
-    res.status(405).json({ message: "Only POST requests allowed" });
+      return res.status(201).json(newComment); // Respond with the newly created comment
+    } catch (error) {
+      return res.status(400).json({ message: "Error creating comment", error });
+    }
   }
-  if (req.method === "PUT") {
-    const { commentId, content } = req.body;
-    const { db } = await connectToDatabase();
 
-    await db
-      .collection("comments")
-      .updateOne(
-        { _id: new ObjectId(commentId) },
-        { $set: { content, updatedAt: new Date() } }
-      );
+  // Handle GET requests (if needed)
+  if (req.method === "GET") {
+    const { parkId } = req.query;
 
-    res.status(200).json({ message: "Comment updated successfully" });
-  } else {
-    res.status(405).json({ message: "Only PUT requests allowed" });
+    try {
+      const comments = await Comment.find({ parkId }).sort({ timestamp: -1 }); // Get comments for the specific park
+      return res.status(200).json(comments);
+    } catch (error) {
+      return res
+        .status(400)
+        .json({ message: "Error fetching comments", error });
+    }
   }
-  if (req.method === "DELETE") {
-    const { commentId } = req.body;
-    const { db } = await connectToDatabase();
 
-    await db.collection("comments").deleteOne({ _id: new ObjectId(commentId) });
-
-    res.status(200).json({ message: "Comment deleted successfully" });
-  } else {
-    res.status(405).json({ message: "Only DELETE requests allowed" });
-  }
+  return res.status(405).json({ message: "Method not allowed" }); // Handle unsupported methods
 }

@@ -2,6 +2,7 @@ import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
 import styled from "styled-components";
 import Link from "next/link";
+import Card from "../Card/Card";
 
 const customIcon = new Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/6162/6162025.png",
