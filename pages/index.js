@@ -1,62 +1,68 @@
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import styled from "styled-components";
 
-const Background = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 8vh;
-`;
-
-const TextContainer = styled.div`
-  display: flex;
+const FullScreenDiv = styled.div`
   position: fixed;
-  flex-direction: column;
+  display: flex;
   justify-content: center;
-  width: 400px;
-  height: 800px;
-  background-color: white;
-  padding: 10px;
-  border: 1px solid black;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100vw; // 100% der Breite des Viewports
+  height: 100vh; // 100% der Höhe des Viewports
+  z-index: 999; // Stellen Sie sicher, dass das Element über anderen Elementen angezeigt wird
 `;
 
-const LogButton = styled.button`
-  border: none;
-  background-color: transparent;
+const VideoBackground = styled.video`
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  object-fit: cover;
+  filter: blur(10px);
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  font-size: 8vw;
+  color: #69af69;
+  transition: color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    color: #a3d2a3;
+  }
 `;
 
 export default function HomePage() {
   const router = useRouter();
-  const { data: session, status } = useSession();
-
-  useEffect(() => {
-    if (status === "authenticated") {
-      // Redirect to the gallery page once authenticated
-      router.push("/parks");
-    }
-  }, [status, router]);
-
-  if (status === "loading" || status === "authenticated") {
-    // While the authentication status is being determined or user is already logged in, show nothing to avoid flickering effect
-    return null;
-  }
+  // const { data: session, status } = useSession();
 
   return (
     <>
-      <Background>
-        <TextContainer>
-          <p>
-            Hide and Seek is an interactive web platform designed to showcase
-            the parks in your city, providing users with comprehensive
-            information about available activities, nearby shops, and upcoming
-            events. Users can easily browse through a curated list of parks,
-            filter those based on specific features, and search for parks by
-            name. If interested: each park is presented in a detailed view.
-          </p>
-        </TextContainer>
-      </Background>
+      <VideoBackground autoPlay loop muted>
+        <source src="/leaves_cut.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </VideoBackground>
+      <FullScreenDiv>
+        <StyledLink href={"./parks"}>Hide and Seek</StyledLink>
+      </FullScreenDiv>
     </>
   );
 }
+
+// above return:
+// useEffect(() => {
+//   if (status === "authenticated") {
+//     // Redirect to the gallery page once authenticated
+//     router.push("/parks");
+//   }
+// }, [status, router]);
+
+// if (status === "loading" || status === "authenticated") {
+//   // While the authentication status is being determined or user is already logged in, show nothing to avoid flickering effect
+//   return null;
+// }

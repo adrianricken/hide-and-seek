@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 const Filter = ({ setFilter }) => {
   const [selectedAmenity, setSelectedAmenity] = useState("");
@@ -8,10 +9,14 @@ const Filter = ({ setFilter }) => {
     setFilter(e.target.value);
   };
 
+  const StyledSelect = styled.select`
+    width: 100%;
+  `;
+
   return (
     <div>
       <p>Filter:</p>
-      <select value={selectedAmenity} onChange={handleFilterChange}>
+      <StyledSelect value={selectedAmenity} onChange={handleFilterChange}>
         <option value="">All amenities</option>
         <option value="Basketball">Basketball</option>
         <option value="Beach volleyball">Beach volleyball</option>
@@ -21,7 +26,7 @@ const Filter = ({ setFilter }) => {
         <option value="Skating">Skating</option>
         <option value="Playground">Playground</option>
         <option value="Table tennis">Table Tennis</option>
-      </select>
+      </StyledSelect>
     </div>
   );
 };
