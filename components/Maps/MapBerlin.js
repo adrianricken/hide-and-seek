@@ -15,10 +15,6 @@ const LevelContainer = styled.div`
   height: fit-content;
 `;
 
-const DistanceDiv = styled.div`
-  height: 2vh;
-`;
-
 export default function MapBerlin({ data }) {
   return (
     <>
@@ -44,7 +40,6 @@ export default function MapBerlin({ data }) {
           ))}
         </MapContainer>
       </LevelContainer>
-      <DistanceDiv />
     </>
   );
 }

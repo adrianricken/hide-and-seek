@@ -13,12 +13,9 @@ const IntroSection = styled.section`
 
 const IntroImage = styled.div`
   width: 50%;
-  height: 100%;
+  height: 180%;
   position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  float: left;
+  object-fit: cover;
   z-index: 1;
 `;
 
@@ -74,9 +71,7 @@ export default function CardDetail({
       <Container>
         <IntroSection id="intro">
           <IntroImage>
-            <div>
-              <Image src={image} fill alt="" />
-            </div>
+            <Image src={image} fill alt="" />
           </IntroImage>
           <IntroTitle>
             <h1>{name}</h1>

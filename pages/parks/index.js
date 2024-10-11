@@ -16,38 +16,17 @@ const MapBerlin = dynamic(() => import("../../components/Maps/MapBerlin"), {
 const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 250px 1fr; /* Fixed width sidebar, flexible main area */
-  gap: 20px; /* Space between sidebar and parks */
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr; /* Stack sidebar and parks on smaller screens */
   }
 `;
 
-const Sidebar = styled.div`
-  height: fit-content;
-  padding: 65px 40px;
-  background-color: white;
-  z-index: 10;
-  position: sticky;
-  top: 10vh; /* Space from top of the screen */
-`;
-
-const SearchInput = styled.input`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
 const ParkContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(300px, 1fr)
-  ); /* Responsive grid */
-  gap: 40px; /* Space between cards */
-  padding: 40px; /* Padding around the grid */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 5rem;
+  padding: 5rem;
 `;
 
 const ParkListItem = styled.li`
@@ -55,34 +34,16 @@ const ParkListItem = styled.li`
 `;
 
 const ParkCard = styled.div`
-  background: #fff; /* Card background */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
-  overflow: hidden; /* Clip overflow */
-  transition: transform 0.2s; /* Smooth hover effect */
+  overflow: hidden;
 `;
 
-const Header = styled.header`
-  display: flex;
-  position: fixed;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: #f7f7ee;
-  height: 8vh;
-  width: 100%;
-  z-index: 2;
-  font-size: 30px;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
-  transition: color 0.3s ease;
-
-  &:hover {
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-  }
+const Sidebar = styled.div`
+  height: fit-content;
+  padding: 5rem 0 0 5rem;
+  background-color: white;
+  z-index: 10;
+  position: sticky;
+  top: 10vh;
 `;
 
 const LogButton = styled.button`
@@ -92,8 +53,20 @@ const LogButton = styled.button`
 
 const ProfileContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  width: 100px;
+  align-items: center;
+  height: 6rem;
+  top: 0;
+  right: 0;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 `;
 
 export default function Parks() {
@@ -167,6 +140,7 @@ export default function Parks() {
                   image={park.imageURL}
                   id={park._id}
                   info={park.description_short}
+                  hash={park.hash}
                 />
               </ParkCard>
             </ParkListItem>

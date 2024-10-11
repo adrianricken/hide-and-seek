@@ -17,18 +17,7 @@ const StyledImage = styled(Image)`
   filter: saturate(0.8);
 `;
 
-const ParkDescription = styled.p`
-  margin: 0;
-  color: #555;
-  display: -webkit-box;
-  -webkit-line-clamp: ${(props) =>
-    props.isExpanded ? "none" : "3"}; /* Limit to 3 lines */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
-export default function Card({ name, image, id, info }) {
+export default function Card({ name, image, id, hash }) {
   return (
     <CardContainer>
       <h2>{name}</h2>
@@ -37,7 +26,6 @@ export default function Card({ name, image, id, info }) {
           <StyledImage src={image} fill alt="" />
         </Link>
       </ImageContainer>
-      <ParkDescription>{info}</ParkDescription>
     </CardContainer>
   );
 }

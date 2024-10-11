@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import Head from "next/head";
-import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 const Header = styled.header`
@@ -39,11 +37,6 @@ const Main = styled.main`
   z-index: 1;
 `;
 
-const LogButton = styled.button`
-  border: none;
-  background-color: transparent;
-`;
-
 const Footer = styled.footer`
   position: relative;
   left: 0;
@@ -59,14 +52,7 @@ const Footer = styled.footer`
   z-index: 2;
 `;
 
-const ProfileContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100px;
-`;
-
 export default function Layout({ children }) {
-  const { data: session } = useSession();
   const router = useRouter();
 
   const hideHeaderFooter = router.pathname === "/"; // Hier anpassen
