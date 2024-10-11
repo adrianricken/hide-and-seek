@@ -30,7 +30,6 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   padding-top: 8vh;
-  padding-bottom: 8vh;
   position: relative;
   width: 100%;
   height: 100%;

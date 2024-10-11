@@ -25,6 +25,7 @@ export default function ParkDetails() {
         amenities={park.amenities}
         accessible={park.accessible}
         description_short={park.description_short}
+        secondImage={park.secondImageURL}
       />
     </>
   );
