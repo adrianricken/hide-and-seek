@@ -1,7 +1,5 @@
-import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import styled from "styled-components";
+import Link from "next/link";
 
 const FullScreenDiv = styled.div`
   position: fixed;
@@ -10,25 +8,25 @@ const FullScreenDiv = styled.div`
   align-items: center;
   top: 0;
   left: 0;
-  width: 100vw; // 100% der Breite des Viewports
-  height: 100vh; // 100% der Höhe des Viewports
-  z-index: 999; // Stellen Sie sicher, dass das Element über anderen Elementen angezeigt wird
+  width: 100vw;
+  height: 100vh;
 `;
 
 const VideoBackground = styled.video`
-  position: fixed;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  min-height: 100%;
+  position: absolute;
+  width: 50vw;
+  height: 50vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: -1;
   object-fit: cover;
-  filter: blur(10px);
+  filter: blur(2px);
 `;
 
-const StyledLink = styled(Link)`
+const MainLink = styled(Link)`
   text-decoration: none;
-  font-size: 8vw;
+  font-size: 10vw;
   color: #69af69;
   transition: color 0.3s ease, transform 0.3s ease;
 
@@ -38,31 +36,13 @@ const StyledLink = styled(Link)`
 `;
 
 export default function HomePage() {
-  const router = useRouter();
-  // const { data: session, status } = useSession();
-
   return (
-    <>
+    <FullScreenDiv>
       <VideoBackground autoPlay loop muted>
         <source src="/leaves_cut.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </VideoBackground>
-      <FullScreenDiv>
-        <StyledLink href={"./parks"}>Hide and Seek</StyledLink>
-      </FullScreenDiv>
-    </>
+      <MainLink href={"./parks"}>Hide and Seek</MainLink>
+    </FullScreenDiv>
   );
 }
-
-// above return:
-// useEffect(() => {
-//   if (status === "authenticated") {
-//     // Redirect to the gallery page once authenticated
-//     router.push("/parks");
-//   }
-// }, [status, router]);
-
-// if (status === "loading" || status === "authenticated") {
-//   // While the authentication status is being determined or user is already logged in, show nothing to avoid flickering effect
-//   return null;
-// }

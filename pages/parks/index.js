@@ -124,9 +124,7 @@ export default function Parks() {
                     style={{ borderRadius: "50%" }}
                   />
                 </Link>
-                <LogButton onClick={() => signOut({ callbackUrl: "/" })}>
-                  Logout
-                </LogButton>
+                <LogButton onClick={() => signOut()}>Logout</LogButton>
               </ProfileContainer>
             )}
           </nav>
