@@ -1,4 +1,3 @@
-import MapBerlin from "@/components/Maps/MapBerlin";
 import { useSession } from "next-auth/react";
 
 export default function ProfilePage() {
@@ -10,7 +9,6 @@ export default function ProfilePage() {
 
   return (
     <>
-      <h1>{session.user.name}</h1>
       <h3>Your favorite parks:</h3>
       <ul></ul>
     </>

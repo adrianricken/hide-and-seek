@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+const StyledSelect = styled.select`
+  width: 100%;
+`;
+
 const Filter = ({ setFilter }) => {
   const [selectedAmenity, setSelectedAmenity] = useState("");
 
@@ -8,10 +12,6 @@ const Filter = ({ setFilter }) => {
     setSelectedAmenity(e.target.value);
     setFilter(e.target.value);
   };
-
-  const StyledSelect = styled.select`
-    width: 100%;
-  `;
 
   return (
     <div>

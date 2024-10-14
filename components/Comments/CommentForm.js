@@ -1,5 +1,20 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import styled from "styled-components";
+
+const StyledTextarea = styled.textarea`
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  margin-bottom: 20px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3rem;
+`;
 
 const CommentForm = ({ parkId, onCommentAdded }) => {
   const { data: session } = useSession();
@@ -33,13 +48,15 @@ const CommentForm = ({ parkId, onCommentAdded }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <textarea
+      <StyledTextarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
         required
-        placeholder="Write your comment..."
+        placeholder="Write a comment..."
       />
-      <button type="submit">Submit</button>
+      <ButtonContainer>
+        <button type="submit">Submit</button>
+      </ButtonContainer>
     </form>
   );
 };

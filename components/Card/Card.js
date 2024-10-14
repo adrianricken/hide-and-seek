@@ -6,6 +6,11 @@ const CardContainer = styled.div`
   width: 30rem;
 `;
 
+const StyledParkName = styled.h3`
+  margin-top: 1rem;
+  color: #336234;
+`;
+
 const ImageContainer = styled.div`
   position: relative;
   height: 20rem;
@@ -17,15 +22,21 @@ const StyledImage = styled(Image)`
   filter: saturate(0.8);
 `;
 
-export default function Card({ name, image, id, hash }) {
+export default function Card({ name, image, id }) {
   return (
     <CardContainer>
-      <h2>{name}</h2>
-      <ImageContainer>
-        <Link href={`/parks/${id}`} passHref>
-          <StyledImage src={image} fill alt="" />
-        </Link>
-      </ImageContainer>
+      <Link href={`/parks/${id}`} passHref>
+        <ImageContainer>
+          <StyledImage
+            src={image}
+            fill
+            sizes="30rem"
+            alt="image of park"
+            priority={true}
+          />
+        </ImageContainer>
+      </Link>
+      <StyledParkName>{name}</StyledParkName>
     </CardContainer>
   );
 }

@@ -4,39 +4,18 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const Header = styled.header`
+const Header = styled(({ isShrunk, ...rest }) => <header {...rest} />)`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: ${({ isShrunk }) =>
-    isShrunk ? "10vh" : "20vh"}; // Adjust height based on state
+  height: ${({ isShrunk }) => (isShrunk ? "8vh" : "15vh")};
   left: 0;
   right: 0;
   z-index: 2;
   font-size: 3rem;
   position: fixed;
   background-color: white;
-  transition: height 0.3s ease; // Smooth transition for height change
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  font-size: 1.8rem;
-  color: #336234;
-
-  &:hover {
-    color: #a3d2a3;
-  }
-`;
-
-const StyledMainLink = styled(Link)`
-  text-decoration: none;
-  font-size: 2.5rem;
-  color: #69af69;
-
-  &:hover {
-    color: #a3d2a3;
-  }
+  transition: height 0.3s ease;
 `;
 
 const NavLinks = styled.div`
@@ -53,10 +32,30 @@ const NavLinks = styled.div`
   }
 `;
 
+const StyledLink = styled(({ active, ...rest }) => <Link {...rest} />)`
+  text-decoration: none;
+  font-size: 1.8rem;
+  color: ${(props) => (props.active ? "#69af69" : "#336234")};
+
+  &:hover {
+    color: #a3d2a3;
+  }
+`;
+
+const StyledMainLink = styled(({ active, ...rest }) => <Link {...rest} />)`
+  text-decoration: none;
+  font-size: 2.5rem;
+  color: #336234;
+
+  &:hover {
+    color: #a3d2a3;
+  }
+`;
+
 const Main = styled.main`
   display: flex;
   flex-direction: column;
-  padding-top: 20vh; // To account for the header
+  padding-top: 15vh; // To account for the header
   position: relative;
   width: 100%;
   height: 100%;
@@ -112,14 +111,14 @@ export default function Layout({ children }) {
           <StyledLink href="/parks" active={router.pathname === "/parks"}>
             Parks
           </StyledLink>
-          <StyledMainLink href="./" active={router.pathname === "/"}>
+          <StyledMainLink href="../" active={router.pathname === "/"}>
             Hide and Seek
           </StyledMainLink>
           <StyledLink href="/events" active={router.pathname === "/events"}>
             Events
           </StyledLink>
-          <StyledLink href="/shop" active={router.pathname === "/shop"}>
-            Shop
+          <StyledLink href="/profile" active={router.pathname === "/shop"}>
+            Profile
           </StyledLink>
         </NavLinks>
       </Header>

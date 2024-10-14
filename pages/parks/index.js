@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Card from "@/components/Card/Card";
 import dynamic from "next/dynamic";
 import Filter from "@/components/Filter/Filter";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
@@ -29,7 +29,7 @@ const ParkContainer = styled.div`
   padding: 5rem;
 `;
 
-const ParkListItem = styled.li`
+const StyledListItem = styled.li`
   list-style: none;
 `;
 
@@ -73,25 +73,20 @@ export default function Parks() {
   const { data: session } = useSession();
   const { data } = useSWR("/api/parks", { fallbackData: [] });
   const sortedParks = data.sort((a, b) => a.name.localeCompare(b.name));
-  const [filter, setFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredParks, setFilteredParks] = useState(sortedParks);
+  const [filter, setFilter] = useState("");
 
-  useEffect(() => {
-    const filtered = sortedParks.filter((park) => {
-      const matchesAmenity = filter
-        ? park.amenities.map((amenity) => amenity).includes(filter)
-        : true;
+  const filteredParks = sortedParks.filter((park) => {
+    const matchesAmenity = filter
+      ? park.amenities.map((amenity) => amenity).includes(filter)
+      : true;
 
-      const matchesSearch = park.name
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase());
+    const matchesSearch = park.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
 
-      return matchesAmenity && matchesSearch; // Both conditions must be true
-    });
-
-    setFilteredParks(filtered);
-  }, [filter, searchQuery, sortedParks]);
+    return matchesAmenity && matchesSearch;
+  });
 
   return (
     <>
@@ -131,17 +126,11 @@ export default function Parks() {
         </Sidebar>
         <ParkContainer>
           {filteredParks.map((park) => (
-            <ParkListItem key={park._id}>
+            <StyledListItem key={park._id}>
               <ParkCard>
-                <Card
-                  name={park.name}
-                  image={park.imageURL}
-                  id={park._id}
-                  info={park.description_short}
-                  hash={park.hash}
-                />
+                <Card name={park.name} image={park.imageURL} id={park._id} />
               </ParkCard>
-            </ParkListItem>
+            </StyledListItem>
           ))}
         </ParkContainer>
       </MainContainer>
