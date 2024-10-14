@@ -1,35 +1,51 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const Header = styled.header`
+const Header = styled(({ isShrunk, ...rest }) => <header {...rest} />)`
   display: flex;
-  position: fixed;
-  flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  background-color: #f7f7ee;
-  height: 8vh;
-  width: 100%;
+  height: ${({ isShrunk }) => (isShrunk ? "8vh" : "15vh")};
+  left: 0;
+  right: 0;
   z-index: 2;
-  font-size: 30px;
+  font-size: 3rem;
+  position: fixed;
+  background-color: white;
+  transition: height 0.3s ease;
 `;
 
-const StyledLink = styled(Link)`
+const NavLinks = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 10vh;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+`;
+
+const StyledLink = styled(({ active, ...rest }) => <Link {...rest} />)`
   text-decoration: none;
-  color: inherit;
-  transition: color 0.3s ease;
+  font-size: 1.8rem;
+  color: ${(props) => (props.active ? "#69af69" : "#336234")};
 
   &:hover {
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    color: #a3d2a3;
   }
 `;
 
 const Main = styled.main`
   display: flex;
   flex-direction: column;
-  padding-top: 8vh;
+  padding-top: 15vh;
   position: relative;
   width: 100%;
   height: 100%;
@@ -53,8 +69,23 @@ const Footer = styled.footer`
 
 export default function Layout({ children }) {
   const router = useRouter();
+  const hideFooter = router.pathname === "/";
+  const [isShrunk, setIsShrunk] = useState(false);
 
-  const hideHeaderFooter = router.pathname === "/"; // Hier anpassen
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      setIsShrunk(true);
+    } else {
+      setIsShrunk(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -62,15 +93,27 @@ export default function Layout({ children }) {
         <title>Hide and Seek</title>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
-      {!hideHeaderFooter && (
-        <Header>
-          <StyledLink href={"/parks"}>
-            <h3>Hide and Seek</h3>
+      <Header isShrunk={isShrunk}>
+        <NavLinks>
+          <StyledLink href="/about" active={router.pathname === "/about"}>
+            About
           </StyledLink>
-        </Header>
-      )}
+          <StyledLink href="/parks" active={router.pathname === "/parks"}>
+            Parks
+          </StyledLink>
+          <StyledLink href="../" active={router.pathname === "/"}>
+            Hide and Seek
+          </StyledLink>
+          <StyledLink href="/events" active={router.pathname === "/events"}>
+            Events
+          </StyledLink>
+          <StyledLink href="/profile" active={router.pathname === "/shop"}>
+            Profile
+          </StyledLink>
+        </NavLinks>
+      </Header>
       <Main>{children}</Main>
-      {!hideHeaderFooter && (
+      {!hideFooter && (
         <Footer>
           <div>2024 Adrian Ricken</div>
         </Footer>

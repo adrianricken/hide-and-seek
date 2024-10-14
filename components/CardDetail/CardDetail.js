@@ -1,21 +1,39 @@
 import Image from "next/image";
 import styled from "styled-components";
-import Comments from "../Comments/Comments";
+import CommentForm from "../CommentForm/CommentForm";
 
 const IntroSection = styled.section`
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-  background-color: #f5f0ec;
+  width: 100%;
+  height: 93vh;
+  background-color: #ffff;
   position: relative;
   margin-top: -8vh;
+`;
+
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 93vh;
+  background-color: #ffff;
+  position: relative;
+`;
+
+const OutroSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 50vh;
+  background-color: #f5f0ec;
+  position: relative;
 `;
 
 const IntroImage = styled.div`
   position: relative;
   width: 100vw;
-  height: 60%;
+  height: 72%;
   box-sizing: border-box;
   margin-top: 8vh;
 `;
@@ -33,8 +51,8 @@ const IntroTitle = styled.div`
 
 const BlockTitle = styled.h1`
   display: block;
-  margin: 0 0 10px 0; /* Abstand nach unten */
-  text-align: center; /* Zentrieren */
+  margin: 0 0 10px 0;
+  text-align: center;
   margin-bottom: 3rem;
 `;
 
@@ -44,51 +62,41 @@ const BlockDescription = styled.p`
   text-align: center;
 `;
 
-const MapSection = styled.section`
-  display: flex;
-  width: 100%;
-  height: 92vh; /* Höhe der oberen Hälfte */
-  background-color: #f5f0ec; /* Hintergrundfarbe */
-`;
-
 const LeftContainer = styled.div`
-  flex: 1; /* Karte nimmt die gesamte obere Hälfte ein */
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ccc; /* Platzhalterfarbe für die Karte */
+  background-color: #ccc;
+  height: 50%;
+  width: 100%;
 `;
 
 const RightContainer = styled.div`
-  flex: 1; /* Beschreibung nimmt die gesamte untere Hälfte ein */
+  flex: 1;
+  width: 100%;
+  height: 50%;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
-const BlockDescriptionFull = styled.p`
+const BlockDescriptionFull = styled.div`
   display: block;
   margin: 0 0 15px 0;
   padding: 5rem;
 `;
 
-const LastSection = styled.section`
-  display: flex;
-  flex-direction: column; /* Vertikal anordnen */
-  width: 100%;
-  height: 92vh; /* Höhe der letzten Section */
-`;
-
-const ImagePlaceholder = styled.div`
+const OutroImage = styled.div`
   position: relative;
   width: 100vw;
-  height: 50%;
+  height: 100%;
   box-sizing: border-box;
 `;
 
 const CommentSection = styled.section`
-  flex: 1; /* Kommentare nehmen die untere Hälfte ein */
+  flex: 1;
   padding: 5rem;
 `;
 
@@ -98,6 +106,7 @@ const Container = styled.div`
 `;
 
 export default function CardDetail({
+  id,
   name,
   description,
   image,
@@ -109,43 +118,54 @@ export default function CardDetail({
     <Container>
       <IntroSection id="intro">
         <IntroImage>
-          <Image src={image} fill alt={name} style={{ objectFit: "cover" }} />
+          <Image
+            src={image}
+            fill
+            alt={name}
+            style={{ objectFit: "cover" }}
+            priority={true}
+          />
         </IntroImage>
         <IntroTitle>
           <BlockTitle>{name}</BlockTitle>
-          <BlockDescription>{description_short}</BlockDescription>
+          <BlockDescription>
+            {description_short}
+            <br />
+            <br />
+            <strong>Accessibility:</strong> {accessible}
+          </BlockDescription>
         </IntroTitle>
       </IntroSection>
 
-      <MapSection id="map">
+      <Section id="map">
         <LeftContainer>
-          {/* Platzhalter für die Karte */}
-          <h2>Map Placeholder</h2>
+          <p>Map Placeholder</p>
         </LeftContainer>
 
         <RightContainer>
-          <BlockDescriptionFull>{description}</BlockDescriptionFull>
           <BlockDescriptionFull>
-            <h3>Accessibility:</h3>
-            {accessible}
+            {description.split(/\n/).map((item, index) => (
+              <p key={index}>{item}</p>
+            ))}
           </BlockDescriptionFull>
         </RightContainer>
-      </MapSection>
+      </Section>
 
-      <LastSection>
-        <ImagePlaceholder>
+      <OutroSection id="outro">
+        <OutroImage>
           <Image
             src={secondImage}
             fill
             alt={name}
             style={{ objectFit: "cover" }}
+            priority={true}
           />
-        </ImagePlaceholder>
-        <CommentSection>
-          <h3>Post a comment:</h3>
-          <Comments />
-        </CommentSection>
-      </LastSection>
+        </OutroImage>
+      </OutroSection>
+
+      <CommentSection id="comments">
+        <CommentForm parkId={id} />
+      </CommentSection>
     </Container>
   );
 }

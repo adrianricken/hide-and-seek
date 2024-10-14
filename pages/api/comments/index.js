@@ -1,46 +1,67 @@
-import { ObjectId } from "mongodb";
+import dbConnect from "@/db/connect";
+import Comment from "@/db/models/Comment";
 
 export default async function handler(req, res) {
+  await dbConnect();
+
   if (req.method === "POST") {
-    const { parkId, userId, content } = req.body;
-    const { db } = await connectToDatabase();
+    const { userId, parkId, content } = req.body;
 
-    const newComment = {
-      parkId,
-      userId,
-      content,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    try {
+      const newComment = await Comment.create({
+        userId,
+        parkId,
+        content,
+        timestamp: new Date(),
+      });
 
-    await db.collection("comments").insertOne(newComment);
-    res.status(201).json({ message: "Comment added successfully" });
-  } else {
-    res.status(405).json({ message: "Only POST requests allowed" });
+      return res.status(201).json(newComment);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Error creating comment", error: error.message });
+    }
   }
-  if (req.method === "PUT") {
-    const { commentId, content } = req.body;
-    const { db } = await connectToDatabase();
 
-    await db
-      .collection("comments")
-      .updateOne(
-        { _id: new ObjectId(commentId) },
-        { $set: { content, updatedAt: new Date() } }
-      );
+  if (req.method === "GET") {
+    const { parkId } = req.query;
 
-    res.status(200).json({ message: "Comment updated successfully" });
-  } else {
-    res.status(405).json({ message: "Only PUT requests allowed" });
+    if (!parkId) {
+      return res.status(400).json({ message: "parkId is required" });
+    }
+
+    try {
+      const comments = await Comment.find({ parkId }).sort({ timestamp: -1 });
+      return res.status(200).json(comments);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Error fetching comments", error: error.message });
+    }
   }
+
   if (req.method === "DELETE") {
-    const { commentId } = req.body;
-    const { db } = await connectToDatabase();
+    const { commentId } = req.query;
 
-    await db.collection("comments").deleteOne({ _id: new ObjectId(commentId) });
+    if (!commentId) {
+      return res.status(400).json({ message: "commentId is required" });
+    }
 
-    res.status(200).json({ message: "Comment deleted successfully" });
-  } else {
-    res.status(405).json({ message: "Only DELETE requests allowed" });
+    try {
+      const deletedComment = await Comment.findByIdAndDelete(commentId);
+
+      if (!deletedComment) {
+        return res.status(404).json({ message: "Comment not found" });
+      }
+
+      return res.status(200).json({ message: "Comment deleted successfully" });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Error deleting comment", error: error.message });
+    }
   }
+
+  // Method not allowed for any other request type
+  return res.status(405).json({ message: "Method not allowed" });
 }
