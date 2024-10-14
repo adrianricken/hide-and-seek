@@ -52,20 +52,20 @@ const Main = styled.main`
   z-index: 1;
 `;
 
-const Footer = styled.footer`
-  position: relative;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  height: 2vh;
-  background-color: #f7f7ee;
-  padding: 1rem 0;
-  color: #2c4f2c;
-  z-index: 2;
-`;
+// const Footer = styled.footer`
+//   position: relative;
+//   left: 0;
+//   bottom: 0;
+//   display: flex;
+//   justify-content: space-around;
+//   align-items: center;
+//   width: 100%;
+//   height: 2vh;
+//   background-color: #f7f7ee;
+//   padding: 1rem 0;
+//   color: #2c4f2c;
+//   z-index: 2;
+// `;
 
 export default function Layout({ children }) {
   const router = useRouter();
@@ -113,11 +113,11 @@ export default function Layout({ children }) {
         </NavLinks>
       </Header>
       <Main>{children}</Main>
-      {!hideFooter && (
+      {/* {!hideFooter && (
         <Footer>
           <div>2024 Adrian Ricken</div>
-        </Footer>
-      )}
+        </Footer> */}
+      {/* )} */}
     </>
   );
 }

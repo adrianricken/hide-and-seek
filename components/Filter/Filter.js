@@ -25,7 +25,7 @@ const Filter = ({ setFilter }) => {
         <option value="Football">Football</option>
         <option value="Skating">Skating</option>
         <option value="Playground">Playground</option>
-        <option value="Table tennis">Table Tennis</option>
+        <option value="Table tennis">Table tennis</option>
       </StyledSelect>
     </div>
   );
