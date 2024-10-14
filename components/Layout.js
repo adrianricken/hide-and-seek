@@ -42,20 +42,10 @@ const StyledLink = styled(({ active, ...rest }) => <Link {...rest} />)`
   }
 `;
 
-const StyledMainLink = styled(({ active, ...rest }) => <Link {...rest} />)`
-  text-decoration: none;
-  font-size: 2.5rem;
-  color: #336234;
-
-  &:hover {
-    color: #a3d2a3;
-  }
-`;
-
 const Main = styled.main`
   display: flex;
   flex-direction: column;
-  padding-top: 15vh; // To account for the header
+  padding-top: 15vh;
   position: relative;
   width: 100%;
   height: 100%;
@@ -111,9 +101,9 @@ export default function Layout({ children }) {
           <StyledLink href="/parks" active={router.pathname === "/parks"}>
             Parks
           </StyledLink>
-          <StyledMainLink href="../" active={router.pathname === "/"}>
+          <StyledLink href="../" active={router.pathname === "/"}>
             Hide and Seek
-          </StyledMainLink>
+          </StyledLink>
           <StyledLink href="/events" active={router.pathname === "/events"}>
             Events
           </StyledLink>

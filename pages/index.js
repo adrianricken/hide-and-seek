@@ -1,5 +1,6 @@
-import styled from "styled-components";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import styled from "styled-components";
 
 const FullScreenDiv = styled.div`
   position: fixed;
@@ -15,7 +16,7 @@ const FullScreenDiv = styled.div`
 const VideoBackground = styled.video`
   position: absolute;
   width: 50vw;
-  height: 50vh;
+  height: 30vh;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -36,13 +37,17 @@ const MainLink = styled(Link)`
 `;
 
 export default function HomePage() {
+  const router = useRouter();
+
   return (
-    <FullScreenDiv>
-      <VideoBackground autoPlay loop muted>
-        <source src="/leaves_cut.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </VideoBackground>
-      <MainLink href={"./parks"}>Hide and Seek</MainLink>
-    </FullScreenDiv>
+    <>
+      <FullScreenDiv>
+        <VideoBackground autoPlay loop muted>
+          <source src="/leaves_cut.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </VideoBackground>
+        <MainLink href={"./parks"}>Hide and Seek</MainLink>
+      </FullScreenDiv>
+    </>
   );
 }

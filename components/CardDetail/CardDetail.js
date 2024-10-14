@@ -1,16 +1,33 @@
 import Image from "next/image";
 import styled from "styled-components";
-import CommentForm from "../Comments/CommentForm";
-import { useEffect, useState } from "react";
+import CommentForm from "../CommentForm/CommentForm";
 
 const IntroSection = styled.section`
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
   height: 93vh;
-  background-color: #f5f0ec;
+  background-color: #ffff;
   position: relative;
   margin-top: -8vh;
+`;
+
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 93vh;
+  background-color: #ffff;
+  position: relative;
+`;
+
+const OutroSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 50vh;
+  background-color: #f5f0ec;
+  position: relative;
 `;
 
 const IntroImage = styled.div`
@@ -37,7 +54,6 @@ const BlockTitle = styled.h1`
   margin: 0 0 10px 0;
   text-align: center;
   margin-bottom: 3rem;
-  color: ;
 `;
 
 const BlockDescription = styled.p`
@@ -46,23 +62,20 @@ const BlockDescription = styled.p`
   text-align: center;
 `;
 
-const MapSection = styled.section`
-  display: flex;
-  width: 100%;
-  height: 92vh;
-  background-color: #f5f0ec;
-`;
-
 const LeftContainer = styled.div`
-  flex: 1; /* map takes up whole space */
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #ccc;
+  height: 50%;
+  width: 100%;
 `;
 
 const RightContainer = styled.div`
-  flex: 1; /* Beschreibung nimmt die gesamte untere Hälfte ein */
+  flex: 1;
+  width: 100%;
+  height: 50%;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -75,51 +88,21 @@ const BlockDescriptionFull = styled.div`
   padding: 5rem;
 `;
 
-const OutroSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-  background-color: #f5f0ec;
-  position: relative;
-`;
-
 const OutroImage = styled.div`
   position: relative;
   width: 100vw;
-  height: 50%;
+  height: 100%;
   box-sizing: border-box;
 `;
 
 const CommentSection = styled.section`
-  flex: 1; /* Kommentare nehmen die untere Hälfte ein */
+  flex: 1;
   padding: 5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100vw;
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const StyledListItem = styled.li`
-  list-style: none;
-`;
-
-const CommentContainer = styled.div`
-  height: auto;
-  width: 100%;
-  background-color: #cce6cc;
-  border-radius: 30px;
-  padding: 20px;
-  margin-top: 30px;
-  overflow: hidden; /* Versteckt überlaufenden Inhalt */
-  white-space: normal; /* Ermöglicht Zeilenumbrüche */
-  word-wrap: break-word; /* Bricht lange Wörter um */
-  text-overflow: ellipsis; /* Zeigt "..." für überlaufenden Text an */
 `;
 
 export default function CardDetail({
@@ -131,29 +114,6 @@ export default function CardDetail({
   description_short,
   secondImage,
 }) {
-  const [comments, setComments] = useState([]);
-
-  const fetchComments = async () => {
-    try {
-      const response = await fetch(`/api/comments?parkId=${id}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setComments(data); // Update the comments state
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchComments();
-  }, [id]);
-
-  const handleCommentAdded = (newComment) => {
-    setComments((prevComments) => [newComment, ...prevComments]);
-  };
-
   return (
     <Container>
       <IntroSection id="intro">
@@ -168,57 +128,43 @@ export default function CardDetail({
         </IntroImage>
         <IntroTitle>
           <BlockTitle>{name}</BlockTitle>
-          <BlockDescription>{description_short}</BlockDescription>
+          <BlockDescription>
+            {description_short}
+            <br />
+            <br />
+            <strong>Accessibility:</strong> {accessible}
+          </BlockDescription>
         </IntroTitle>
       </IntroSection>
 
-      <MapSection id="map">
+      <Section id="map">
         <LeftContainer>
-          {/* Platzhalter für die Karte */}
           <p>Map Placeholder</p>
         </LeftContainer>
 
         <RightContainer>
-          <BlockDescriptionFull>{description}</BlockDescriptionFull>
+          <BlockDescriptionFull>
+            {description.split(/\n/).map((item, index) => (
+              <p key={index}>{item}</p>
+            ))}
+          </BlockDescriptionFull>
         </RightContainer>
-      </MapSection>
+      </Section>
 
       <OutroSection id="outro">
         <OutroImage>
-          <h3>Accessibility:</h3>
-          {accessible}
+          <Image
+            src={secondImage}
+            fill
+            alt={name}
+            style={{ objectFit: "cover" }}
+            priority={true}
+          />
         </OutroImage>
-        <Image
-          src={secondImage}
-          fill
-          alt={name}
-          style={{ objectFit: "cover" }}
-          priority={true}
-        />
       </OutroSection>
-      <CommentSection id="comments">
-        <CommentForm parkId={id} onCommentAdded={handleCommentAdded} />
 
-        <ul>
-          {comments.length === 0 ? (
-            <StyledListItem>
-              <p>No comments yet. Be the first!</p>
-            </StyledListItem>
-          ) : (
-            comments.map((comment) => (
-              <StyledListItem key={comment._id}>
-                <CommentContainer>
-                  <p>{comment.content}</p>
-                  <br />
-                  <small>
-                    {comment.userId},{" "}
-                    {new Date(comment.timestamp).toLocaleString()}
-                  </small>
-                </CommentContainer>
-              </StyledListItem>
-            ))
-          )}
-        </ul>
+      <CommentSection id="comments">
+        <CommentForm parkId={id} />
       </CommentSection>
     </Container>
   );

@@ -4,13 +4,11 @@ import Card from "@/components/Card/Card";
 import dynamic from "next/dynamic";
 import Filter from "@/components/Filter/Filter";
 import { useState } from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import Image from "next/image";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 
 const MapBerlin = dynamic(() => import("../../components/Maps/MapBerlin"), {
-  ssr: false, // Disable Server-Side Rendering
+  ssr: false,
 });
 
 const MainContainer = styled.div`
@@ -105,24 +103,6 @@ export default function Parks() {
             onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
           />
           <Filter setFilter={setFilter} /> {/* Pass the setFilter function */}
-          <nav>
-            {!session ? (
-              <LogButton onClick={() => signIn()}>Login</LogButton>
-            ) : (
-              <ProfileContainer>
-                <Link href={"./profile"}>
-                  <Image
-                    src={session.user.image}
-                    alt="User Profile"
-                    width={50}
-                    height={50}
-                    style={{ borderRadius: "50%" }}
-                  />
-                </Link>
-                <LogButton onClick={() => signOut()}>Logout</LogButton>
-              </ProfileContainer>
-            )}
-          </nav>
         </Sidebar>
         <ParkContainer>
           {filteredParks.map((park) => (
