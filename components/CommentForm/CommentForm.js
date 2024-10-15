@@ -5,25 +5,36 @@ import styled from "styled-components";
 
 // Styled components should be outside the functional component to prevent re-creation
 const StyledTextarea = styled.textarea`
-  width: 100%;
+  width: calc(100% - 150px); /* Adjust width to leave space for the button */
   height: auto;
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 30px;
+  border: 1px solid #bab7b6;
 `;
 
-const ButtonContainer = styled.div`
+const InputContainer = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+`;
+
+const CommentContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 3rem;
 `;
 
 const StyledButton = styled.button`
-  background-color: #69af69;
-  border: none;
+  background-color: #ffff;
   width: 5rem;
   height: 3rem;
+  border: 1px solid #69af69;
+  color: #69af69;
   border-radius: 2rem;
 
   &:hover {
@@ -36,23 +47,40 @@ const CommentList = styled.ul`
   padding: 0;
 `;
 
-const CommentItem = styled.li`
+const Comment = styled.li`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Space out children to fill the item */
+  align-items: center; /* Align items vertically */
   margin-bottom: 1rem;
+  background-color: #e8e3e1;
+  padding: 20px; /* Add padding inside the border */
+  border-radius: 30px;
+  color: #336234;
+  width: calc(100% - 150px);
+  height: auto;
+`;
+
+const StyledSmall = styled.small`
+  color: #bab7b6;
 `;
 
 const DeleteButton = styled.button`
-  background-color: #ff6961;
+  background-color: #ffff;
   border: none;
   width: 5rem;
   height: 2rem;
+  border: 1px solid red;
   border-radius: 2rem;
-  color: white;
+  color: red;
 
   &:hover {
-    background-color: #ff9a9a;
+    background-color: #e3b6b3;
   }
+`;
+
+const NoCommentsDiv = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const CommentForm = ({ parkId }) => {
@@ -140,32 +168,56 @@ const CommentForm = ({ parkId }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <StyledTextarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          required
-          placeholder="Write a comment..."
-        />
-        <ButtonContainer>
+        <InputContainer>
+          <StyledTextarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            required
+            placeholder="Write a comment..."
+            maxLength={300}
+          />
           <StyledButton type="submit">Submit</StyledButton>
-        </ButtonContainer>
+        </InputContainer>
         {error && <p>{error}</p>}
       </form>
 
-      <CommentList>
-        {comments.map((comment) => (
-          <CommentItem key={comment._id}>
-            <div>
-              <strong>{comment.userId}</strong>: {comment.content}
-            </div>
-            {session && session.user.name === comment.userId && (
-              <DeleteButton onClick={() => confirmDelete(comment._id)}>
-                Delete
-              </DeleteButton>
-            )}
-          </CommentItem>
-        ))}
-      </CommentList>
+      {comments.length === 0 ? (
+        <NoCommentsDiv>
+          <p>No comments yet. Be the first!</p>
+        </NoCommentsDiv>
+      ) : (
+        <CommentList>
+          {comments.map((comment) => (
+            <CommentContainer>
+              <Comment key={comment._id}>
+                <div style={{ flexGrow: 1 }}>
+                  {comment.content}
+                  <div>
+                    <StyledSmall>
+                      {comment.userId},{" "}
+                      {new Date(comment.timestamp).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                      })}
+                      ,{" "}
+                      {new Date(comment.timestamp).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </StyledSmall>
+                  </div>
+                </div>
+              </Comment>
+              {session && session.user.name === comment.userId && (
+                <DeleteButton onClick={() => confirmDelete(comment._id)}>
+                  Delete
+                </DeleteButton>
+              )}
+            </CommentContainer>
+          ))}
+        </CommentList>
+      )}
 
       {showModal && (
         <Modal

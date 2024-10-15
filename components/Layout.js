@@ -25,16 +25,57 @@ const NavLinks = styled.div`
   width: 100%;
   height: 10vh;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
+  @media (max-width: 770px) {
+    display: none; /* Verstecke Links ab 770px abwärts */
+  }
+`;
+
+const DropdownContainer = styled.div`
+  display: none;
+
+  @media (max-width: 770px) {
+    display: flex;
     align-items: center;
-    width: 100%;
+    position: relative;
+  }
+`;
+
+const DropdownButton = styled.button`
+  background-color: transparent;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #336234;
+
+  &:hover {
+    color: #69af69;
+  }
+`;
+
+const DropdownMenu = styled.ul`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+
+  li {
+    padding: 0.5rem 1rem;
+    text-align: left;
+
+    &:hover {
+      background-color: #f1f1f1;
+    }
   }
 `;
 
 const StyledLink = styled(({ active, ...rest }) => <Link {...rest} />)`
   text-decoration: none;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: ${(props) => (props.active ? "#69af69" : "#336234")};
 
   &:hover {
@@ -52,25 +93,10 @@ const Main = styled.main`
   z-index: 1;
 `;
 
-const Footer = styled.footer`
-  position: relative;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  height: 2vh;
-  background-color: #f7f7ee;
-  padding: 1rem 0;
-  color: #2c4f2c;
-  z-index: 2;
-`;
-
 export default function Layout({ children }) {
   const router = useRouter();
-  const hideFooter = router.pathname === "/";
   const [isShrunk, setIsShrunk] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleScroll = () => {
     if (window.scrollY > 50) {
@@ -94,6 +120,7 @@ export default function Layout({ children }) {
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
       <Header isShrunk={isShrunk}>
+        {/* Normale Navigation, die nur auf großen Bildschirmen angezeigt wird */}
         <NavLinks>
           <StyledLink href="/about" active={router.pathname === "/about"}>
             About
@@ -101,23 +128,55 @@ export default function Layout({ children }) {
           <StyledLink href="/parks" active={router.pathname === "/parks"}>
             Parks
           </StyledLink>
-          <StyledLink href="../" active={router.pathname === "/"}>
-            Hide and Seek
-          </StyledLink>
+
+          <StyledLink href="/">Hide and Seek</StyledLink>
+
           <StyledLink href="/events" active={router.pathname === "/events"}>
             Events
           </StyledLink>
-          <StyledLink href="/profile" active={router.pathname === "/shop"}>
+          <StyledLink href="/profile" active={router.pathname === "/profile"}>
             Profile
           </StyledLink>
         </NavLinks>
+
+        {/* Dropdown für kleine Bildschirme */}
+        <DropdownContainer>
+          <DropdownButton onClick={() => setDropdownOpen(!dropdownOpen)}>
+            Hide and Seek
+          </DropdownButton>
+          {dropdownOpen && (
+            <DropdownMenu>
+              <li>
+                <StyledLink href="/about" active={router.pathname === "/about"}>
+                  About
+                </StyledLink>
+              </li>
+              <li>
+                <StyledLink href="/parks" active={router.pathname === "/parks"}>
+                  Parks
+                </StyledLink>
+              </li>
+              <li>
+                <StyledLink
+                  href="/events"
+                  active={router.pathname === "/events"}
+                >
+                  Events
+                </StyledLink>
+              </li>
+              <li>
+                <StyledLink
+                  href="/profile"
+                  active={router.pathname === "/profile"}
+                >
+                  Profile
+                </StyledLink>
+              </li>
+            </DropdownMenu>
+          )}
+        </DropdownContainer>
       </Header>
       <Main>{children}</Main>
-      {!hideFooter && (
-        <Footer>
-          <div>2024 Adrian Ricken</div>
-        </Footer>
-      )}
     </>
   );
 }

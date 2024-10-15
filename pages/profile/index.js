@@ -1,21 +1,53 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import styled from "styled-components";
 import Image from "next/image";
-import Link from "next/link";
 
 const LogButton = styled.button`
   border: none;
-  background-color: transparent;
+  background-color: #aba4a3;
+  width: 75px;
+  height: 30px;
+  border-radius: 20px;
+  position: absolute;
+  margin-top: 15rem;
+
+  &:hover {
+    background-color: #bfb7b6;
+  }
 `;
 
-const ProfileContainer = styled.div`
+const ButtonContainer = styled.div`
+  height: 3rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  height: 60rem;
-  top: 0;
-  right: 0;
+`;
+
+const ProfilePictureContainer = styled.div`
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  margin-top: -3rem;
+`;
+
+const HeadingContainer = styled.div`
+  height: 5rem;
+  margin-top: 10rem;
+  display: flex;
+  justify-content: center;
+`;
+
+const FavoritesContainer = styled.div`
+  height: 100%;
+  margin: 5rem;
+`;
+
+const FavoriteParksContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export default function ProfilePage() {
@@ -25,22 +57,36 @@ export default function ProfilePage() {
     <>
       <nav>
         {!session ? (
-          <LogButton onClick={() => signIn()}>Login</LogButton>
+          <ButtonContainer>
+            <LogButton onClick={() => signIn()}>Login</LogButton>
+          </ButtonContainer>
         ) : (
-          <ProfileContainer>
-            <Image
-              src={session.user.image}
-              alt="User Profile"
-              width={100}
-              height={100}
-              style={{ borderRadius: "50%" }}
-            />
-            <LogButton onClick={() => signOut()}>Logout</LogButton>
-            <br />
-          </ProfileContainer>
+          <>
+            <ButtonContainer>
+              <LogButton onClick={() => signOut()}>Logout</LogButton>
+            </ButtonContainer>
+            <ProfilePictureContainer>
+              <Image
+                src={session.user.image}
+                alt="User Profile"
+                width={100}
+                height={100}
+                style={{ borderRadius: "50%" }}
+              />
+            </ProfilePictureContainer>
+            <HeadingContainer>
+              <h2>Hello, {session.user.name}</h2>
+            </HeadingContainer>
+            <FavoritesContainer>
+              <br />
+              <p>Your favorite parks:</p>
+              <FavoriteParksContainer>
+                <p>- coming soon-</p>
+              </FavoriteParksContainer>
+            </FavoritesContainer>
+          </>
         )}
       </nav>
-      <h3>Your favorite parks:</h3>
     </>
   );
 }

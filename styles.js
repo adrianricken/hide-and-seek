@@ -14,6 +14,7 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: system-ui;
+    line-height: 1.6;
   }
 
   /* sizing of map container */
@@ -21,5 +22,5 @@ export default createGlobalStyle`
   height: 50vh;
   width: 100%;
   }
-  
+
   `;
