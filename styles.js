@@ -22,5 +22,5 @@ export default createGlobalStyle`
   height: 50vh;
   width: 100%;
   }
-  
+
   `;

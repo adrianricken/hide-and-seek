@@ -50,14 +50,13 @@ const IntroTitle = styled.div`
 `;
 
 const BlockTitle = styled.h1`
-  display: block;
   text-align: center;
   margin-bottom: 3rem;
   color: #336234;
+  font-size: 1.75rem;
 `;
 
 const BlockDescription = styled.p`
-  display: block;
   margin: 0;
   text-align: center;
   color: #336234;

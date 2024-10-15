@@ -40,7 +40,7 @@ const MainLink = styled(Link)`
 
 export default function HomePage() {
   const router = useRouter();
-  const [blurValue, setBlurValue] = useState(2); // Initialer Blur-Wert
+  const [blurValue, setBlurValue] = useState(10); // Setze den Blur-Wert auf 10 beim Laden
 
   // Event-Handler für die Mausbewegung
   const handleMouseMove = useCallback(

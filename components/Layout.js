@@ -75,7 +75,7 @@ const DropdownMenu = styled.ul`
 
 const StyledLink = styled(({ active, ...rest }) => <Link {...rest} />)`
   text-decoration: none;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: ${(props) => (props.active ? "#69af69" : "#336234")};
 
   &:hover {
@@ -95,7 +95,6 @@ const Main = styled.main`
 
 export default function Layout({ children }) {
   const router = useRouter();
-  const hideFooter = router.pathname === "/";
   const [isShrunk, setIsShrunk] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -129,9 +128,9 @@ export default function Layout({ children }) {
           <StyledLink href="/parks" active={router.pathname === "/parks"}>
             Parks
           </StyledLink>
-          <StyledLink href="/" active={router.pathname === "/"}>
-            Hide and Seek
-          </StyledLink>
+
+          <StyledLink href="/">Hide and Seek</StyledLink>
+
           <StyledLink href="/events" active={router.pathname === "/events"}>
             Events
           </StyledLink>
