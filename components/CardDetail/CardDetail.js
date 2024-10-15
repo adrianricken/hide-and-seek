@@ -115,6 +115,10 @@ export default function CardDetail({
   description_short,
   secondImage,
 }) {
+  const formatDescription = (description) => {
+    return description.replace(/\n/g, "<br />");
+  };
+
   return (
     <Container>
       <IntroSection id="intro">
@@ -144,11 +148,9 @@ export default function CardDetail({
         </LeftContainer>
 
         <RightContainer>
-          <BlockDescriptionFull>
-            {description.split(/\n/).map((item, index) => (
-              <p key={index}>{item}</p>
-            ))}
-          </BlockDescriptionFull>
+          <BlockDescriptionFull
+            dangerouslySetInnerHTML={{ __html: formatDescription(description) }}
+          />
         </RightContainer>
       </Section>
 

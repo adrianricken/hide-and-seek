@@ -20,6 +20,7 @@ const Filter = ({ setFilter }) => {
         <option value="">All amenities</option>
         <option value="Basketball">Basketball</option>
         <option value="Beach volleyball">Beach volleyball</option>
+        <option value="Boule">Boule</option>
         <option value="Calisthenics">Calisthenics</option>
         <option value="Climbing">Climbing</option>
         <option value="Football">Football</option>

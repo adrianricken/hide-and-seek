@@ -33,9 +33,16 @@ const ProfilePictureContainer = styled.div`
   margin-top: -3rem;
 `;
 
+const HeadingContainer = styled.div`
+  height: 5rem;
+  margin-top: 10rem;
+  display: flex;
+  justify-content: center;
+`;
+
 const FavoritesContainer = styled.div`
   height: 100%;
-  margin-top: 10rem;
+  margin: 5rem;
 `;
 
 const FavoriteParksContainer = styled.div`
@@ -67,8 +74,12 @@ export default function ProfilePage() {
                 style={{ borderRadius: "50%" }}
               />
             </ProfilePictureContainer>
+            <HeadingContainer>
+              <h2>Hello, {session.user.name}</h2>
+            </HeadingContainer>
             <FavoritesContainer>
-              <h3>Your favorite parks:</h3>
+              <br />
+              <p>Your favorite parks:</p>
               <FavoriteParksContainer>
                 <p>- coming soon-</p>
               </FavoriteParksContainer>

@@ -34,11 +34,8 @@ export default function events() {
         parks based on available sports facilities, making it easy to find what
         they're looking for. Each park entry includes an overview of the
         recreational opportunities available, ensuring users can maximize their
-        outdoor experiences. Logged in users can also add comments to
-        communicate their experiences. This project not only serves as a
-        practical application of my skills in web development but also aims to
-        foster community engagement and encourage outdoor activities in the
-        vibrant city of Berlin.
+        outdoor experiences. Logged in users are also able to add comments to
+        communicate their experiences and share them with others.
       </About>
     </AboutContainer>
   );

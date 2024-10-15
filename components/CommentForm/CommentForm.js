@@ -10,6 +10,7 @@ const StyledTextarea = styled.textarea`
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 30px;
+  border: 1px solid #bab7b6;
 `;
 
 const ButtonContainer = styled.div`
@@ -20,14 +21,16 @@ const ButtonContainer = styled.div`
 `;
 
 const StyledButton = styled.button`
-  background-color: #69af69;
-  border: none;
+  background-color: #ffff;
   width: 5rem;
   height: 3rem;
+  border: 1px solid #69af69;
+  color: #69af69;
   border-radius: 2rem;
 
   &:hover {
     background-color: #a3d2a3;
+    color: white;
   }
 `;
 
@@ -43,16 +46,22 @@ const CommentItem = styled.li`
 `;
 
 const DeleteButton = styled.button`
-  background-color: #ff6961;
+  background-color: #ffff;
   border: none;
   width: 5rem;
   height: 2rem;
+  border: 1px solid red;
   border-radius: 2rem;
-  color: white;
+  color: red;
 
   &:hover {
-    background-color: #ff9a9a;
+    background-color: #e3b6b3;
   }
+`;
+
+const NoCommentsDiv = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const CommentForm = ({ parkId }) => {
@@ -152,20 +161,29 @@ const CommentForm = ({ parkId }) => {
         {error && <p>{error}</p>}
       </form>
 
-      <CommentList>
-        {comments.map((comment) => (
-          <CommentItem key={comment._id}>
-            <div>
-              <strong>{comment.userId}</strong>: {comment.content}
-            </div>
-            {session && session.user.name === comment.userId && (
-              <DeleteButton onClick={() => confirmDelete(comment._id)}>
-                Delete
-              </DeleteButton>
-            )}
-          </CommentItem>
-        ))}
-      </CommentList>
+      {comments.length === 0 ? (
+        <NoCommentsDiv>
+          <p>No comments yet. Be the first!</p>
+        </NoCommentsDiv>
+      ) : (
+        <CommentList>
+          {comments.map((comment) => (
+            <CommentItem key={comment._id}>
+              <div>
+                <small>
+                  {comment.userId}, {comment.timestamp}
+                </small>
+                : {comment.content}
+              </div>
+              {session && session.user.name === comment.userId && (
+                <DeleteButton onClick={() => confirmDelete(comment._id)}>
+                  Delete
+                </DeleteButton>
+              )}
+            </CommentItem>
+          ))}
+        </CommentList>
+      )}
 
       {showModal && (
         <Modal
