@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 // Styled components should be outside the functional component to prevent re-creation
 const StyledTextarea = styled.textarea`
-  width: 100%;
+  width: calc(100% - 150px); /* Adjust width to leave space for the button */
   height: auto;
   padding: 20px;
   margin-bottom: 20px;
@@ -13,10 +13,11 @@ const StyledTextarea = styled.textarea`
   border: 1px solid #bab7b6;
 `;
 
-const ButtonContainer = styled.div`
+const InputContainer = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between; /* Align to start for better positioning */
   margin-bottom: 3rem;
 `;
 
@@ -43,6 +44,15 @@ const CommentItem = styled.li`
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
+  background-color: #e8e3e1;
+  padding: 20px; /* Add padding inside the border */
+  border-radius: 30px;
+  align-items: center; /* Align items vertically */
+  color: #336234;
+`;
+
+const StyledSmall = styled.small`
+  color: #bab7b6;
 `;
 
 const DeleteButton = styled.button`
@@ -53,6 +63,7 @@ const DeleteButton = styled.button`
   border: 1px solid red;
   border-radius: 2rem;
   color: red;
+  margin-left: 10px; /* Add space between comment text and delete button */
 
   &:hover {
     background-color: #e3b6b3;
@@ -149,15 +160,15 @@ const CommentForm = ({ parkId }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <StyledTextarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          required
-          placeholder="Write a comment..."
-        />
-        <ButtonContainer>
+        <InputContainer>
+          <StyledTextarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            required
+            placeholder="Write a comment..."
+          />
           <StyledButton type="submit">Submit</StyledButton>
-        </ButtonContainer>
+        </InputContainer>
         {error && <p>{error}</p>}
       </form>
 
@@ -170,10 +181,22 @@ const CommentForm = ({ parkId }) => {
           {comments.map((comment) => (
             <CommentItem key={comment._id}>
               <div>
-                <small>
-                  {comment.userId}, {comment.timestamp}
-                </small>
-                : {comment.content}
+                {comment.content}
+                <div>
+                  <StyledSmall>
+                    {session.user.name},{" "}
+                    {new Date(comment.timestamp).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    })}
+                    ,{" "}
+                    {new Date(comment.timestamp).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </StyledSmall>
+                </div>
               </div>
               {session && session.user.name === comment.userId && (
                 <DeleteButton onClick={() => confirmDelete(comment._id)}>
