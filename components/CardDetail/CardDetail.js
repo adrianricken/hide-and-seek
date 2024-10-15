@@ -51,15 +51,16 @@ const IntroTitle = styled.div`
 
 const BlockTitle = styled.h1`
   display: block;
-  margin: 0 0 10px 0;
   text-align: center;
   margin-bottom: 3rem;
+  color: #336234;
 `;
 
 const BlockDescription = styled.p`
   display: block;
   margin: 0;
   text-align: center;
+  color: #336234;
 `;
 
 const LeftContainer = styled.div`
@@ -86,6 +87,7 @@ const BlockDescriptionFull = styled.div`
   display: block;
   margin: 0 0 15px 0;
   padding: 5rem;
+  color: #336234;
 `;
 
 const OutroImage = styled.div`
