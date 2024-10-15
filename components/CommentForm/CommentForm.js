@@ -17,7 +17,15 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between; /* Align to start for better positioning */
+  justify-content: space-between;
+  margin-bottom: 3rem;
+`;
+
+const CommentContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 3rem;
 `;
 
@@ -31,7 +39,6 @@ const StyledButton = styled.button`
 
   &:hover {
     background-color: #a3d2a3;
-    color: white;
   }
 `;
 
@@ -40,15 +47,17 @@ const CommentList = styled.ul`
   padding: 0;
 `;
 
-const CommentItem = styled.li`
+const Comment = styled.li`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Space out children to fill the item */
+  align-items: center; /* Align items vertically */
   margin-bottom: 1rem;
   background-color: #e8e3e1;
   padding: 20px; /* Add padding inside the border */
   border-radius: 30px;
-  align-items: center; /* Align items vertically */
   color: #336234;
+  width: calc(100% - 150px);
+  height: auto;
 `;
 
 const StyledSmall = styled.small`
@@ -63,7 +72,6 @@ const DeleteButton = styled.button`
   border: 1px solid red;
   border-radius: 2rem;
   color: red;
-  margin-left: 10px; /* Add space between comment text and delete button */
 
   &:hover {
     background-color: #e3b6b3;
@@ -179,31 +187,33 @@ const CommentForm = ({ parkId }) => {
       ) : (
         <CommentList>
           {comments.map((comment) => (
-            <CommentItem key={comment._id}>
-              <div>
-                {comment.content}
-                <div>
-                  <StyledSmall>
-                    {session.user.name},{" "}
-                    {new Date(comment.timestamp).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "2-digit",
-                      year: "numeric",
-                    })}
-                    ,{" "}
-                    {new Date(comment.timestamp).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </StyledSmall>
+            <CommentContainer>
+              <Comment key={comment._id}>
+                <div style={{ flexGrow: 1 }}>
+                  {comment.content}
+                  <div>
+                    <StyledSmall>
+                      {comment.userId},{" "}
+                      {new Date(comment.timestamp).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                      })}
+                      ,{" "}
+                      {new Date(comment.timestamp).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </StyledSmall>
+                  </div>
                 </div>
-              </div>
+              </Comment>
               {session && session.user.name === comment.userId && (
                 <DeleteButton onClick={() => confirmDelete(comment._id)}>
                   Delete
                 </DeleteButton>
               )}
-            </CommentItem>
+            </CommentContainer>
           ))}
         </CommentList>
       )}
