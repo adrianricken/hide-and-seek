@@ -44,21 +44,6 @@ const Sidebar = styled.div`
   top: 10vh;
 `;
 
-const LogButton = styled.button`
-  border: none;
-  background-color: transparent;
-`;
-
-const ProfileContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 6rem;
-  top: 0;
-  right: 0;
-`;
-
 const SearchInput = styled.input`
   width: 100%;
   padding: 10px;

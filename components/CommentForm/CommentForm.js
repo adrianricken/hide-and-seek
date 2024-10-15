@@ -174,6 +174,7 @@ const CommentForm = ({ parkId }) => {
             onChange={(e) => setContent(e.target.value)}
             required
             placeholder="Write a comment..."
+            maxLength={300}
           />
           <StyledButton type="submit">Submit</StyledButton>
         </InputContainer>

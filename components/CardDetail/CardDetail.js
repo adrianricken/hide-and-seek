@@ -1,12 +1,20 @@
 import Image from "next/image";
 import styled from "styled-components";
 import CommentForm from "../CommentForm/CommentForm";
+import dynamic from "next/dynamic";
+
+const MapVolksparkFriedrichshain = dynamic(
+  () => import("../Maps/MapVolksparkFriedrichshain"),
+  {
+    ssr: false,
+  }
+);
 
 const IntroSection = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 93vh;
+  height: 53vh;
   background-color: #ffff;
   position: relative;
   margin-top: -8vh;
@@ -25,15 +33,14 @@ const OutroSection = styled.section`
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 50vh;
-  background-color: #f5f0ec;
+  height: 92vh;
   position: relative;
 `;
 
 const IntroImage = styled.div`
   position: relative;
   width: 100vw;
-  height: 72%;
+  height: 100%;
   box-sizing: border-box;
   margin-top: 8vh;
 `;
@@ -62,16 +69,6 @@ const BlockDescription = styled.p`
   color: #336234;
 `;
 
-const LeftContainer = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ccc;
-  height: 50%;
-  width: 100%;
-`;
-
 const RightContainer = styled.div`
   flex: 1;
   width: 100%;
@@ -84,8 +81,7 @@ const RightContainer = styled.div`
 
 const BlockDescriptionFull = styled.div`
   display: block;
-  margin: 0 0 15px 0;
-  padding: 5rem;
+  padding: 20rem;
   color: #336234;
 `;
 
@@ -94,6 +90,35 @@ const OutroImage = styled.div`
   width: 100vw;
   height: 100%;
   box-sizing: border-box;
+  overflow: hidden; /* Prevents overflow of the pseudo-elements */
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 20%; /* Adjust height to control the fade area */
+    pointer-events: none; /* Allows clicks to pass through */
+  }
+
+  &::before {
+    top: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0)
+    );
+  }
+
+  &::after {
+    bottom: 0;
+    background: linear-gradient(
+      to top,
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0)
+    );
+  }
 `;
 
 const CommentSection = styled.section`
@@ -131,6 +156,8 @@ export default function CardDetail({
             priority={true}
           />
         </IntroImage>
+      </IntroSection>
+      <Section>
         <IntroTitle>
           <BlockTitle>{name}</BlockTitle>
           <BlockDescription>
@@ -140,13 +167,11 @@ export default function CardDetail({
             <strong>Accessibility:</strong> {accessible}
           </BlockDescription>
         </IntroTitle>
-      </IntroSection>
+
+        <MapVolksparkFriedrichshain />
+      </Section>
 
       <Section id="map">
-        <LeftContainer>
-          <p>Map Placeholder</p>
-        </LeftContainer>
-
         <RightContainer>
           <BlockDescriptionFull
             dangerouslySetInnerHTML={{ __html: formatDescription(description) }}
@@ -164,11 +189,10 @@ export default function CardDetail({
             priority={true}
           />
         </OutroImage>
+        <CommentSection id="comments">
+          <CommentForm parkId={id} />
+        </CommentSection>
       </OutroSection>
-
-      <CommentSection id="comments">
-        <CommentForm parkId={id} />
-      </CommentSection>
     </Container>
   );
 }
