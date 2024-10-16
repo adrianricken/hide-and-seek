@@ -73,7 +73,7 @@ export default function MapVolksparkFriedrichshain() {
             <Popup>Table tennis</Popup>
           </Marker>
           <Marker position={[52.527779, 13.434509]} icon={footballIcon}>
-            <Popup>Football</Popup>
+            <Popup>Table tennis</Popup>
           </Marker>
           <Marker position={[52.528644, 13.432041]} icon={skatingIcon}>
             <Popup>Skating</Popup>
