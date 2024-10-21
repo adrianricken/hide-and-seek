@@ -15,8 +15,10 @@ const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 250px 1fr; /* Fixed width sidebar, flexible main area */
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr; /* Stack sidebar and parks on smaller screens */
+  @media (max-width: 760px) {
+    grid-template-columns: 1fr;
+    justify-items: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
   }
 `;
 
@@ -42,6 +44,11 @@ const Sidebar = styled.div`
   z-index: 10;
   position: sticky;
   top: 10vh;
+
+  @media (max-width: 760px) {
+    margin-right: 5rem;
+    width: 100%;
+  }
 `;
 
 const SearchInput = styled.input`
