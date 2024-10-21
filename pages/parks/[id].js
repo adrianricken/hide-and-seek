@@ -19,7 +19,9 @@ export default function ParkDetails() {
       <CardDetail
         id={park._id}
         name={park.name}
-        location={park.coordinates}
+        latitude={park.coordinates.lat}
+        longitude={park.coordinates.lng}
+        zoomLevel={park.zoomLevel}
         description={park.description}
         image={park.imageURL}
         amenities={park.amenities}

@@ -3,12 +3,9 @@ import styled from "styled-components";
 import CommentForm from "../CommentForm/CommentForm";
 import dynamic from "next/dynamic";
 
-const MapVolksparkFriedrichshain = dynamic(
-  () => import("../Maps/MapVolksparkFriedrichshain"),
-  {
-    ssr: false,
-  }
-);
+const MapPark = dynamic(() => import("../Maps/MapPark"), {
+  ssr: false,
+});
 
 const IntroSection = styled.section`
   display: flex;
@@ -134,6 +131,9 @@ const Container = styled.div`
 export default function CardDetail({
   id,
   name,
+  latitude,
+  longitude,
+  zoomLevel,
   description,
   image,
   accessible,
@@ -157,6 +157,7 @@ export default function CardDetail({
           />
         </IntroImage>
       </IntroSection>
+
       <Section>
         <IntroTitle>
           <BlockTitle>{name}</BlockTitle>
@@ -167,8 +168,11 @@ export default function CardDetail({
             <strong>Accessibility:</strong> {accessible}
           </BlockDescription>
         </IntroTitle>
-
-        <MapVolksparkFriedrichshain />
+        <MapPark
+          latitude={latitude}
+          longitude={longitude}
+          zoomLevel={zoomLevel}
+        />
       </Section>
 
       <Section id="map">

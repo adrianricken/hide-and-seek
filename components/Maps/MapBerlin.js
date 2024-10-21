@@ -25,7 +25,7 @@ const StyledLink = styled(Link)`
 export default function MapBerlin({ data }) {
   return (
     <LevelContainer>
-      <MapContainer center={[52.51173, 13.40156]} zoom={11.5}>
+      <MapContainer center={[52.51079, 13.39336]} zoom={12}>
         <TileLayer
           attribution="&copy; OpenStreetMap"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

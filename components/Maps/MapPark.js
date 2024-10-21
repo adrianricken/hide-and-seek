@@ -44,11 +44,15 @@ const LevelContainer = styled.div`
   height: fit-content;
 `;
 
-export default function MapVolksparkFriedrichshain() {
+export default function MapVolksparkFriedrichshain({
+  latitude,
+  longitude,
+  zoomLevel,
+}) {
   return (
     <>
       <LevelContainer>
-        <MapContainer center={[52.52741, 13.4324]} zoom={16}>
+        <MapContainer center={[latitude, longitude]} zoom={zoomLevel}>
           <TileLayer
             attribution="&copy; OpenStreetMap"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
