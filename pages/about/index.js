@@ -32,7 +32,7 @@ export default function events() {
         app allows users to easily browse a curated list of parks in the city,
         complete with detailed information about each location. Users can filter
         parks based on available sports facilities, making it easy to find what
-        they're looking for. Each park entry includes an overview of the
+        they&apos;re looking for. Each park entry includes an overview of the
         recreational opportunities available, ensuring users can maximize their
         outdoor experiences. Logged in users are also able to add comments to
         communicate their experiences and share them with others.

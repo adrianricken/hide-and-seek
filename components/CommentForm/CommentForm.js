@@ -13,6 +13,11 @@ const StyledTextarea = styled.textarea`
   border: 1px solid #bab7b6;
 `;
 
+const StyledError = styled.p`
+  color: red;
+  font-size: 0.9rem;
+`;
+
 const InputContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -155,14 +160,15 @@ const CommentForm = ({ parkId }) => {
       if (response.ok) {
         setComments(
           comments.filter((comment) => comment._id !== commentToDelete)
-        ); // Remove the comment from the list
+        );
+        setCommentToDelete(null); // Reset after delete
       } else {
         throw new Error("Failed to delete the comment.");
       }
     } catch (error) {
-      setError(error.message); // Capture and display error
+      setError(error.message);
     }
-    setShowModal(false); // Close the modal
+    setShowModal(false);
   };
 
   return (
@@ -178,7 +184,7 @@ const CommentForm = ({ parkId }) => {
           />
           <StyledButton type="submit">Submit</StyledButton>
         </InputContainer>
-        {error && <p>{error}</p>}
+        {error && <StyledError>{error}</StyledError>}
       </form>
 
       {comments.length === 0 ? (
@@ -188,7 +194,7 @@ const CommentForm = ({ parkId }) => {
       ) : (
         <CommentList>
           {comments.map((comment) => (
-            <CommentContainer>
+            <CommentContainer key={comment._id}>
               <Comment key={comment._id}>
                 <div style={{ flexGrow: 1 }}>
                   {comment.content}
