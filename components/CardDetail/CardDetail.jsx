@@ -18,6 +18,7 @@ export default function CardDetail({
   accessible,
   description_short,
   secondImage,
+  amenities,
 }) {
   const formatDescription = (description) => {
     return description.replace(/\n/g, "<br />");
@@ -51,6 +52,7 @@ export default function CardDetail({
           latitude={latitude}
           longitude={longitude}
           zoomLevel={zoomLevel}
+          amenities={amenities}
         />
       </Styled.Section>
 
