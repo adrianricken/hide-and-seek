@@ -1,25 +1,21 @@
-import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import styled from "styled-components";
-import Link from "next/link";
 
-// Custom icon for the markers
 const customIcon = new Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/6162/6162025.png",
-  iconSize: [20, 20],
+  iconSize: [15, 15],
 });
 
-// Styled container for the map
 const LevelContainer = styled.div`
   z-index: 100;
   box-sizing: border-box;
   height: fit-content;
 `;
 
-// Styled link component to remove underline
-const StyledLink = styled(Link)`
-  text-decoration: none; // Remove underline
-  color: inherit; // Inherit color from parent
+const StyledLink = styled.a`
+  text-decoration: none;
+  color: inherit;
 `;
 
 export default function MapBerlin({ data }) {

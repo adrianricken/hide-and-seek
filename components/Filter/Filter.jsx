@@ -1,22 +1,18 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import * as Styled from "./Filter.styles";
 
-const StyledSelect = styled.select`
-  width: 100%;
-`;
-
-const Filter = ({ setFilter }) => {
+function Filter({ setFilter }) {
   const [selectedAmenity, setSelectedAmenity] = useState("");
 
-  const handleFilterChange = (e) => {
+  function handleFilterChange(e) {
     setSelectedAmenity(e.target.value);
     setFilter(e.target.value);
-  };
+  }
 
   return (
     <div>
       <p>Filter:</p>
-      <StyledSelect value={selectedAmenity} onChange={handleFilterChange}>
+      <Styled.Dropdown value={selectedAmenity} onChange={handleFilterChange}>
         <option value="">All amenities</option>
         <option value="Basketball">Basketball</option>
         <option value="Beach volleyball">Beach volleyball</option>
@@ -27,9 +23,9 @@ const Filter = ({ setFilter }) => {
         <option value="Skating">Skating</option>
         <option value="Playground">Playground</option>
         <option value="Table tennis">Table tennis</option>
-      </StyledSelect>
+      </Styled.Dropdown>
     </div>
   );
-};
+}
 
 export default Filter;
