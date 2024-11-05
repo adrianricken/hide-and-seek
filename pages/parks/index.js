@@ -68,7 +68,7 @@ export default function Parks() {
 
   const filteredParks = sortedParks.filter((park) => {
     const matchesAmenity = filter
-      ? park.amenities.map((amenity) => amenity).includes(filter)
+      ? park.amenities.some((amenity) => amenity.type === filter)
       : true;
 
     const matchesSearch = park.name
@@ -94,7 +94,7 @@ export default function Parks() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
           />
-          <Filter setFilter={setFilter} /> {/* Pass the setFilter function */}
+          <Filter setFilter={setFilter} />
         </Sidebar>
         <ParkContainer>
           {filteredParks.map((park) => (
