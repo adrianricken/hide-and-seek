@@ -1,132 +1,11 @@
 import Image from "next/image";
-import styled from "styled-components";
 import CommentForm from "../CommentForm/CommentForm";
 import dynamic from "next/dynamic";
+import * as Styled from "./CardDetail.styles";
 
 const MapPark = dynamic(() => import("../Maps/MapPark"), {
   ssr: false,
 });
-
-const IntroSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 53vh;
-  background-color: #ffff;
-  position: relative;
-  margin-top: -8vh;
-`;
-
-const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 93vh;
-  background-color: #ffff;
-  position: relative;
-`;
-
-const OutroSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 92vh;
-  position: relative;
-`;
-
-const IntroImage = styled.div`
-  position: relative;
-  width: 100vw;
-  height: 100%;
-  box-sizing: border-box;
-  margin-top: 8vh;
-`;
-
-const IntroTitle = styled.div`
-  display: flex;
-  width: 100%;
-  height: 50%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0 20rem 0 20rem;
-  z-index: 1;
-`;
-
-const BlockTitle = styled.h1`
-  text-align: center;
-  margin-bottom: 3rem;
-  color: #336234;
-  font-size: 1.75rem;
-`;
-
-const BlockDescription = styled.p`
-  margin: 0;
-  text-align: center;
-  color: #336234;
-`;
-
-const RightContainer = styled.div`
-  flex: 1;
-  width: 100%;
-  height: 50%;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const BlockDescriptionFull = styled.div`
-  display: block;
-  padding: 20rem;
-  color: #336234;
-`;
-
-const OutroImage = styled.div`
-  position: relative;
-  width: 100vw;
-  height: 100%;
-  box-sizing: border-box;
-  overflow: hidden; /* Prevents overflow of the pseudo-elements */
-
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 20%; /* Adjust height to control the fade area */
-    pointer-events: none; /* Allows clicks to pass through */
-  }
-
-  &::before {
-    top: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 1),
-      rgba(255, 255, 255, 0)
-    );
-  }
-
-  &::after {
-    bottom: 0;
-    background: linear-gradient(
-      to top,
-      rgba(255, 255, 255, 1),
-      rgba(255, 255, 255, 0)
-    );
-  }
-`;
-
-const CommentSection = styled.section`
-  flex: 1;
-  padding: 5rem;
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
 export default function CardDetail({
   id,
@@ -145,9 +24,9 @@ export default function CardDetail({
   };
 
   return (
-    <Container>
-      <IntroSection id="intro">
-        <IntroImage>
+    <Styled.Container>
+      <Styled.IntroSection id="intro">
+        <Styled.IntroImage>
           <Image
             src={image}
             fill
@@ -155,36 +34,36 @@ export default function CardDetail({
             style={{ objectFit: "cover" }}
             priority={true}
           />
-        </IntroImage>
-      </IntroSection>
+        </Styled.IntroImage>
+      </Styled.IntroSection>
 
-      <Section>
-        <IntroTitle>
-          <BlockTitle>{name}</BlockTitle>
-          <BlockDescription>
+      <Styled.Section>
+        <Styled.IntroTitle>
+          <Styled.BlockTitle>{name}</Styled.BlockTitle>
+          <Styled.BlockDescription>
             {description_short}
             <br />
             <br />
             <strong>Accessibility:</strong> {accessible}
-          </BlockDescription>
-        </IntroTitle>
+          </Styled.BlockDescription>
+        </Styled.IntroTitle>
         <MapPark
           latitude={latitude}
           longitude={longitude}
           zoomLevel={zoomLevel}
         />
-      </Section>
+      </Styled.Section>
 
-      <Section id="map">
-        <RightContainer>
-          <BlockDescriptionFull
+      <Styled.Section id="map">
+        <Styled.RightContainer>
+          <Styled.BlockDescriptionFull
             dangerouslySetInnerHTML={{ __html: formatDescription(description) }}
           />
-        </RightContainer>
-      </Section>
+        </Styled.RightContainer>
+      </Styled.Section>
 
-      <OutroSection id="outro">
-        <OutroImage>
+      <Styled.OutroSection id="outro">
+        <Styled.OutroImage>
           <Image
             src={secondImage}
             fill
@@ -192,11 +71,11 @@ export default function CardDetail({
             style={{ objectFit: "cover" }}
             priority={true}
           />
-        </OutroImage>
-        <CommentSection id="comments">
+        </Styled.OutroImage>
+        <Styled.CommentSection id="comments">
           <CommentForm parkId={id} />
-        </CommentSection>
-      </OutroSection>
-    </Container>
+        </Styled.CommentSection>
+      </Styled.OutroSection>
+    </Styled.Container>
   );
 }
