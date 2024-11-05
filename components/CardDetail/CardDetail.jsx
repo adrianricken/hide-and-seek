@@ -9,6 +9,7 @@ const MapPark = dynamic(() => import("../Maps/MapPark"), {
 
 export default function CardDetail({
   id,
+  amenities,
   name,
   latitude,
   longitude,
@@ -51,6 +52,7 @@ export default function CardDetail({
           latitude={latitude}
           longitude={longitude}
           zoomLevel={zoomLevel}
+          amenities={amenities}
         />
       </Styled.Section>
 

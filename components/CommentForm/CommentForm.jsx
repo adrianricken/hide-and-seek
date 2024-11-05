@@ -1,92 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Modal from "../Modal";
-import styled from "styled-components";
-
-// Styled components should be outside the functional component to prevent re-creation
-const StyledTextarea = styled.textarea`
-  width: calc(100% - 150px); /* Adjust width to leave space for the button */
-  height: auto;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 30px;
-  border: 1px solid #bab7b6;
-`;
-
-const StyledError = styled.p`
-  color: red;
-  font-size: 0.9rem;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 3rem;
-`;
-
-const CommentContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 3rem;
-`;
-
-const StyledButton = styled.button`
-  background-color: #ffff;
-  width: 5rem;
-  height: 3rem;
-  border: 1px solid #69af69;
-  color: #69af69;
-  border-radius: 2rem;
-
-  &:hover {
-    background-color: #a3d2a3;
-  }
-`;
-
-const CommentList = styled.ul`
-  list-style-type: none;
-  padding: 0;
-`;
-
-const Comment = styled.li`
-  display: flex;
-  justify-content: space-between; /* Space out children to fill the item */
-  align-items: center; /* Align items vertically */
-  margin-bottom: 1rem;
-  background-color: #e8e3e1;
-  padding: 20px; /* Add padding inside the border */
-  border-radius: 30px;
-  color: #336234;
-  width: calc(100% - 150px);
-  height: auto;
-`;
-
-const StyledSmall = styled.small`
-  color: #bab7b6;
-`;
-
-const DeleteButton = styled.button`
-  background-color: #ffff;
-  border: none;
-  width: 5rem;
-  height: 2rem;
-  border: 1px solid red;
-  border-radius: 2rem;
-  color: red;
-
-  &:hover {
-    background-color: #e3b6b3;
-  }
-`;
-
-const NoCommentsDiv = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+import * as Styled from "./CommentForm.styles";
 
 const CommentForm = ({ parkId }) => {
   const { data: session } = useSession();
@@ -174,32 +89,32 @@ const CommentForm = ({ parkId }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <InputContainer>
-          <StyledTextarea
+        <Styled.InputContainer>
+          <Styled.StyledTextarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
             placeholder="Write a comment..."
             maxLength={300}
           />
-          <StyledButton type="submit">Submit</StyledButton>
-        </InputContainer>
-        {error && <StyledError>{error}</StyledError>}
+          <Styled.StyledButton type="submit">Submit</Styled.StyledButton>
+        </Styled.InputContainer>
+        {error && <Styled.StyledError>{error}</Styled.StyledError>}
       </form>
 
       {comments.length === 0 ? (
-        <NoCommentsDiv>
+        <Styled.NoCommentsDiv>
           <p>No comments yet. Be the first!</p>
-        </NoCommentsDiv>
+        </Styled.NoCommentsDiv>
       ) : (
-        <CommentList>
+        <Styled.CommentList>
           {comments.map((comment) => (
-            <CommentContainer key={comment._id}>
-              <Comment key={comment._id}>
+            <Styled.CommentContainer key={comment._id}>
+              <Styled.Comment key={comment._id}>
                 <div style={{ flexGrow: 1 }}>
                   {comment.content}
                   <div>
-                    <StyledSmall>
+                    <Styled.StyledSmall>
                       {comment.userId},{" "}
                       {new Date(comment.timestamp).toLocaleDateString("en-GB", {
                         day: "2-digit",
@@ -211,18 +126,18 @@ const CommentForm = ({ parkId }) => {
                         hour: "2-digit",
                         minute: "2-digit",
                       })}
-                    </StyledSmall>
+                    </Styled.StyledSmall>
                   </div>
                 </div>
-              </Comment>
+              </Styled.Comment>
               {session && session.user.name === comment.userId && (
-                <DeleteButton onClick={() => confirmDelete(comment._id)}>
+                <Styled.DeleteButton onClick={() => confirmDelete(comment._id)}>
                   Delete
-                </DeleteButton>
+                </Styled.DeleteButton>
               )}
-            </CommentContainer>
+            </Styled.CommentContainer>
           ))}
-        </CommentList>
+        </Styled.CommentList>
       )}
 
       {showModal && (
