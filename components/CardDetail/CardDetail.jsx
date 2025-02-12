@@ -18,7 +18,6 @@ export default function CardDetail({
   image,
   accessible,
   description_short,
-  secondImage,
 }) {
   const formatDescription = (description) => {
     return description.replace(/\n/g, "<br />");
@@ -26,7 +25,7 @@ export default function CardDetail({
 
   return (
     <Styled.Container>
-      <Styled.IntroSection id="intro">
+      {/* <Styled.IntroSection id="intro">
         <Styled.IntroImage>
           <Image
             src={image}
@@ -36,7 +35,7 @@ export default function CardDetail({
             priority={true}
           />
         </Styled.IntroImage>
-      </Styled.IntroSection>
+      </Styled.IntroSection> */}
 
       <Styled.Section>
         <Styled.IntroTitle>
@@ -65,15 +64,15 @@ export default function CardDetail({
       </Styled.Section>
 
       <Styled.OutroSection id="outro">
-        <Styled.OutroImage>
+        {/* <Styled.OutroImage>
           <Image
-            src={secondImage}
+            src={image}
             fill
             alt={name}
             style={{ objectFit: "cover" }}
             priority={true}
           />
-        </Styled.OutroImage>
+        </Styled.OutroImage> */}
         <Styled.CommentSection id="comments">
           <CommentForm parkId={id} />
         </Styled.CommentSection>

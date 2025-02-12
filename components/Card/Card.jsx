@@ -1,17 +1,17 @@
 import Link from "next/link";
 import * as Styled from "./Card.styles";
 
-export default function Card({ name, image, id }) {
+export default function Card({ name, id }) {
   return (
     <Styled.CardContainer>
       <Link href={`/parks/${id}`} passHref>
         <Styled.ImageContainer>
           <Styled.StyledImage
-            src={image}
-            fill
-            sizes="30rem"
+            src={`/ParkIcons/${name}.jpg`}
             alt="image of park"
             priority={true}
+            fill
+            sizes="30rem"
           />
         </Styled.ImageContainer>
       </Link>

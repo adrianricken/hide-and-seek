@@ -100,7 +100,7 @@ export default function Parks() {
           {filteredParks.map((park) => (
             <StyledListItem key={park._id}>
               <ParkCard>
-                <Card name={park.name} image={park.imageURL} id={park._id} />
+                <Card name={park.name} id={park._id} />
               </ParkCard>
             </StyledListItem>
           ))}
