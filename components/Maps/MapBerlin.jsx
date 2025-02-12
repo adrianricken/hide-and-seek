@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Link from "next/link";
 
 const customIcon = new Icon({
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/6162/6162025.png",
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684850.png",
   iconSize: [20, 20],
 });
 
