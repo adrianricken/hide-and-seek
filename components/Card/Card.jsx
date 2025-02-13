@@ -7,7 +7,7 @@ export default function Card({ name, id }) {
       <Link href={`/parks/${id}`} passHref>
         <Styled.ImageContainer>
           <Styled.StyledImage
-            src={`/ParkIcons/${name}.jpg`}
+            src={`/ParkIcons/${name}.svg`}
             alt="image of park"
             priority={true}
             fill
