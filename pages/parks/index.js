@@ -39,14 +39,14 @@ const ParkCard = styled.div`
 
 const Sidebar = styled.div`
   height: fit-content;
-  padding: 5rem 0 0 5rem;
+  padding: 5rem 0 5rem 5rem;
   background-color: white;
   z-index: 10;
   position: sticky;
-  top: 10vh;
+  top: 0;
 
   @media (max-width: 760px) {
-    margin-right: 5rem;
+    padding-right: 5rem;
     width: 100%;
   }
 `;

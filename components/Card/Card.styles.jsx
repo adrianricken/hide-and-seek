@@ -2,13 +2,14 @@ import styled from "styled-components";
 import Image from "next/image.js";
 
 export const CardContainer = styled.div`
-  width: 300px;
+  width: 100%;
   height: auto;
 `;
 
 export const StyledParkName = styled.h3`
   margin-top: 1rem;
   color: #336234;
+  justify-self: center;
 `;
 
 export const ImageContainer = styled.div`
@@ -19,6 +20,7 @@ export const ImageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: inset 0px 4px 10px rgba(0, 0, 0, 0.1);
 `;
 
 export const StyledImage = styled(Image)`
@@ -28,4 +30,5 @@ export const StyledImage = styled(Image)`
   position: absolute;
   top: 0;
   left: 0;
+  padding: 10px;
 `;

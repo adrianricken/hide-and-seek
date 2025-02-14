@@ -1,4 +1,3 @@
-import Image from "next/image";
 import CommentForm from "../CommentForm/CommentForm";
 import dynamic from "next/dynamic";
 import * as Styled from "./CardDetail.styles";
@@ -15,7 +14,6 @@ export default function CardDetail({
   longitude,
   zoomLevel,
   description,
-  image,
   accessible,
   description_short,
 }) {
@@ -25,18 +23,6 @@ export default function CardDetail({
 
   return (
     <Styled.Container>
-      {/* <Styled.IntroSection id="intro">
-        <Styled.IntroImage>
-          <Image
-            src={image}
-            fill
-            alt={name}
-            style={{ objectFit: "cover" }}
-            priority={true}
-          />
-        </Styled.IntroImage>
-      </Styled.IntroSection> */}
-
       <Styled.Section>
         <Styled.IntroTitle>
           <Styled.BlockTitle>{name}</Styled.BlockTitle>
@@ -64,15 +50,6 @@ export default function CardDetail({
       </Styled.Section>
 
       <Styled.OutroSection id="outro">
-        {/* <Styled.OutroImage>
-          <Image
-            src={image}
-            fill
-            alt={name}
-            style={{ objectFit: "cover" }}
-            priority={true}
-          />
-        </Styled.OutroImage> */}
         <Styled.CommentSection id="comments">
           <CommentForm parkId={id} />
         </Styled.CommentSection>

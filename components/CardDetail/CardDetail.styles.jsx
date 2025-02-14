@@ -13,8 +13,8 @@ export const IntroSection = styled.section`
 export const Section = styled.section`
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  height: 93vh;
+  width: 100%;
+  height: 100%;
   background-color: #ffff;
   position: relative;
 `;
@@ -46,6 +46,19 @@ export const IntroTitle = styled.div`
   z-index: 1;
 `;
 
+export const ContentWrapper = styled.div`
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto; /* Zentriert das Element */
+  padding: 0 2rem; /* Fügt etwas Abstand an den Seiten hinzu */
+`;
+
+export const FullWidthContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
 export const BlockTitle = styled.h1`
   text-align: center;
   margin-bottom: 3rem;
@@ -54,9 +67,9 @@ export const BlockTitle = styled.h1`
 `;
 
 export const BlockDescription = styled.p`
-  margin: 0;
   text-align: center;
   color: #336234;
+  padding-bottom: 3rem;
 `;
 
 export const RightContainer = styled.div`
@@ -71,7 +84,7 @@ export const RightContainer = styled.div`
 
 export const BlockDescriptionFull = styled.div`
   display: block;
-  padding: 20rem;
+  padding: 2rem;
   color: #336234;
 `;
 
