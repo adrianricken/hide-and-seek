@@ -35,8 +35,6 @@ const StyledListItem = styled.li`
 
 const ParkCard = styled.div`
   overflow: hidden;
-  display: flex;
-  justify-content: center;
 `;
 
 const Sidebar = styled.div`
