@@ -5,34 +5,28 @@ import styled from "styled-components";
 const createIcon = (iconUrl) =>
   new Icon({
     iconUrl,
-    iconSize: [30, 30],
+    iconSize: [25, 25],
   });
 
 const icons = {
-  Climbing: createIcon(
-    "https://cdn-icons-png.flaticon.com/512/6162/6162025.png"
-  ),
+  Climbing: createIcon("https://cdn-icons-png.flaticon.com/512/114/114434.png"),
   "Beach volleyball": createIcon(
-    "https://cdn-icons-png.flaticon.com/512/6162/6162025.png"
+    "https://cdn-icons-png.flaticon.com/512/606/606076.png"
   ),
   Playground: createIcon(
-    "https://cdn-icons-png.flaticon.com/512/6162/6162025.png"
+    "https://cdn-icons-png.flaticon.com/128/501/501703.png"
   ),
   "Table tennis": createIcon(
-    "https://cdn-icons-png.flaticon.com/512/6162/6162025.png"
+    "https://cdn-icons-png.flaticon.com/512/140/140513.png"
   ),
-  Boule: createIcon("https://cdn-icons-png.flaticon.com/512/6162/6162025.png"),
+  Boule: createIcon("https://cdn-icons-png.flaticon.com/512/2265/2265087.png"),
   Calisthenics: createIcon(
-    "https://cdn-icons-png.flaticon.com/512/6162/6162025.png"
+    "https://cdn-icons-png.flaticon.com/512/10060/10060273.png"
   ),
-  Football: createIcon(
-    "https://cdn-icons-png.flaticon.com/512/6162/6162025.png"
-  ),
-  Skating: createIcon(
-    "https://cdn-icons-png.flaticon.com/512/6162/6162025.png"
-  ),
+  Football: createIcon("https://cdn-icons-png.flaticon.com/512/77/77305.png"),
+  Skating: createIcon("https://cdn-icons-png.flaticon.com/512/72/72949.png"),
   Basketball: createIcon(
-    "https://cdn-icons-png.flaticon.com/512/6162/6162025.png"
+    "https://cdn-icons-png.flaticon.com/512/3349/3349343.png"
   ),
 };
 
