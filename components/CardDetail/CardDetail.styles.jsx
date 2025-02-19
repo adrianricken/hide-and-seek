@@ -13,7 +13,7 @@ export const IntroSection = styled.section`
 export const Section = styled.section`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  max-width: 1280px;
   height: 100%;
   background-color: #ffff;
   position: relative;
@@ -22,9 +22,9 @@ export const Section = styled.section`
 export const OutroSection = styled.section`
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  height: 92vh;
-  position: relative;
+  height: auto;
+  width: 100%;
+  max-width: 1280px;
 `;
 
 export const IntroImage = styled.div`
@@ -42,7 +42,6 @@ export const IntroTitle = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 20rem 0 20rem;
   z-index: 1;
 `;
 
@@ -61,22 +60,22 @@ export const FullWidthContainer = styled.div`
 
 export const BlockTitle = styled.h1`
   text-align: center;
-  margin-bottom: 3rem;
+  margin-top: 3rem;
   color: #336234;
-  font-size: 1.75rem;
+  font-size: 3rem;
 `;
 
 export const BlockDescription = styled.p`
   text-align: center;
+  width: 100%;
   color: #336234;
-  padding-bottom: 3rem;
+  padding: 5rem 3rem 5rem 3rem;
 `;
 
 export const RightContainer = styled.div`
   flex: 1;
   width: 100%;
   height: 50%;
-  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,7 +83,7 @@ export const RightContainer = styled.div`
 
 export const BlockDescriptionFull = styled.div`
   display: block;
-  padding: 2rem;
+  padding: 5rem 3rem 5rem 3rem;
   color: #336234;
 `;
 
@@ -126,10 +125,13 @@ export const OutroImage = styled.div`
 
 export const CommentSection = styled.section`
   flex: 1;
-  padding: 5rem;
+  width: 100%;
+  padding: 5rem 3rem 5rem 3rem;
 `;
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
