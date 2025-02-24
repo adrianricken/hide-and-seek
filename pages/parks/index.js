@@ -14,19 +14,34 @@ const MapBerlin = dynamic(() => import("../../components/Maps/MapBerlin"), {
 const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 250px 1fr; /* Fixed width sidebar, flexible main area */
+  align-items: start;
 
   @media (max-width: 760px) {
     grid-template-columns: 1fr;
-    justify-items: center; /* Horizontally center the content */
-    align-items: center; /* Vertically center the content */
+    grid-template-rows: auto auto; /* Sidebar oben, dann Liste */
   }
 `;
 
 const ParkContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 5rem;
-  padding: 5rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+`;
+
+const Sidebar = styled.div`
+  height: auto;
+  padding: 2rem;
+  background-color: white;
+  z-index: 10;
+  position: sticky;
+  top: 0;
+
+  @media (max-width: 760px) {
+    position: relative;
+    padding: 2rem;
+  }
 `;
 
 const StyledListItem = styled.li`
@@ -35,20 +50,6 @@ const StyledListItem = styled.li`
 
 const ParkCard = styled.div`
   overflow: hidden;
-`;
-
-const Sidebar = styled.div`
-  height: fit-content;
-  padding: 5rem 0 5rem 5rem;
-  background-color: white;
-  z-index: 10;
-  position: sticky;
-  top: 0;
-
-  @media (max-width: 760px) {
-    padding-right: 5rem;
-    width: 100%;
-  }
 `;
 
 const SearchInput = styled.input`
@@ -84,7 +85,6 @@ export default function Parks() {
         <title>Hide and Seek - Parks</title>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
-
       <MapBerlin data={filteredParks} />
       <MainContainer>
         <Sidebar>
